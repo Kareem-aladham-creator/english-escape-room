@@ -9,29 +9,14 @@ body {
 
 .bubble-font { font-family: 'DynaPuff', cursive; }
 
-/* --- Floating Background --- */
-.floating-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
+/* --- Question Animation --- */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.float-item {
-    position: absolute;
-    color: rgba(255, 255, 255, 0.1);
-    font-size: 2rem;
-    animation: floatingAround 10s infinite ease-in-out;
-}
-
-.float-item:nth-child(1) { top: 10%; left: 10%; }
-.float-item:nth-child(2) { top: 20%; left: 80%; }
-.float-item:nth-child(3) { top: 70%; left: 15%; }
-.float-item:nth-child(4) { top: 80%; left: 70%; }
-
-@keyframes floatingAround {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+.question-animation {
+    animation: fadeInSlide 0.4s ease-out forwards;
 }
 
 /* --- Maze & Character --- */
@@ -53,45 +38,67 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* --- Buttons --- */
+/* --- Quiz Box --- */
+#quiz-box {
+    background: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+/* --- Buttons (As seen in image_58c5fd.png) --- */
+#options-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
 button {
     background: white;
     color: #173796;
     border: none;
-    padding: 12px 40px;
-    border-radius: 50px;
+    padding: 15px 60px;
+    border-radius: 12px; /* Rectangular with slight curve */
     font-weight: bold;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
+    min-width: 200px;
 }
 
 button:hover {
-    transform: scale(1.1);
     background: #ffd700;
+    transform: scale(1.05);
 }
 
-/* --- Firework Fix Logic --- */
+/* --- FIREWORK FIX --- */
 .firework, .heartbreak {
     position: fixed; 
-    font-size: 50px;
+    font-size: 60px;
     bottom: -100px;
     z-index: 1;
-    display: none; /* This keeps them off the home screen! */
+    opacity: 0; /* Forced hidden */
+    pointer-events: none;
 }
 
 #win-screen:not(.hidden) .firework,
 #lose-screen:not(.hidden) .heartbreak {
-    display: block;
+    opacity: 1;
+    display: block !important;
     animation: flyUp 3s linear infinite;
 }
 
 @keyframes flyUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-120vh) rotate(360deg); }
 }
 
-/* --- Layout Helpers --- */
+/* --- Utilities --- */
 .hidden { display: none !important; }
-.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; background: #173796; }
+.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; background: #173796; }
 .bg-red { background: #b22222 !important; }
-.big-win { font-size: 4rem; }
+.big-win { font-size: 5rem; margin: 0; }
+.credits { margin-top: 20px; font-size: 1.1rem; opacity: 0.9; }
