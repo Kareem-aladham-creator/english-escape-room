@@ -9,21 +9,28 @@ body {
 
 .bubble-font { font-family: 'DynaPuff', cursive; }
 
-/* --- FLOATING WORDS ANIMATION --- */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-    100% { transform: translateY(0px); }
+/* --- THE EXTREME FLOATING ANIMATION --- */
+@keyframes floatCrazy {
+    0% { transform: translateY(0px) rotate(0deg) scale(1); }
+    25% { transform: translateY(-15px) rotate(3deg) scale(1.05); }
+    50% { transform: translateY(0px) rotate(0deg) scale(1); }
+    75% { transform: translateY(15px) rotate(-3deg) scale(0.95); }
+    100% { transform: translateY(0px) rotate(0deg) scale(1); }
 }
 
 .floating-words {
-    animation: float 3s ease-in-out infinite;
-    text-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+    animation: floatCrazy 3s ease-in-out infinite;
+    text-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+}
+
+/* Make titles even crazier */
+.crazy-float {
+    animation: floatCrazy 2s ease-in-out infinite !important;
 }
 
 /* --- QUESTION POP ANIMATION --- */
 @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
@@ -50,7 +57,7 @@ body {
 
 #quiz-box {
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px); /* Modern glass effect */
+    backdrop-filter: blur(10px);
     width: 85%;
     max-width: 600px;
     margin: 15px auto;
@@ -84,38 +91,44 @@ button {
 button:hover {
     background: linear-gradient(135deg, #ffd700, #ffb300);
     color: #000;
-    box-shadow: 0 15px 20px rgba(255, 215, 0, 0.4);
-    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.6);
+    transform: translateY(-5px) scale(1.05);
 }
 
 button:active {
     transform: translateY(2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- FIREWORK FIX --- */
+/* --- THE MASSIVE FLYING ANIMATION FIX --- */
 .firework, .heartbreak {
     position: fixed;
     display: none;
-    font-size: 60px;
-    bottom: -80px;
+    font-size: 50px; /* Big emojis */
+    bottom: -100px;
     z-index: 100;
+    opacity: 0.9;
 }
 
 #win-screen:not(.hidden) .firework,
 #lose-screen:not(.hidden) .heartbreak {
     display: block;
-    animation: flyUp 3s linear infinite;
+    /* Uses the inline speeds set in HTML */
+    animation-name: flyUpSpin;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
-@keyframes flyUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+@keyframes flyUpSpin {
+    0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 1; scale: 1.2; }
+    50% { transform: translateY(-60vh) rotate(180deg) scale(1); }
+    90% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg) scale(0.8); opacity: 0; }
 }
 
 /* --- UTILITIES --- */
 .hidden { display: none !important; }
 .fullscreen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; background: #173796; }
 .bg-red { background: #b22222 !important; }
-.big-win { font-size: 4.5rem; margin-bottom: 20px; }
-.credits { margin-top: 30px; line-height: 0.8; font-size: 1.1rem; opacity: 0.9; }
+.big-win { font-size: 5rem; margin-bottom: 20px; }
+.credits { margin-top: 30px; line-height: 0.8; font-size: 1.2rem; opacity: 0.9; }
