@@ -1,3 +1,4 @@
+/* --- Core Styling --- */
 body {
     background-color: #173796 !important; 
     color: white;
@@ -9,14 +10,14 @@ body {
 
 .bubble-font { font-family: 'DynaPuff', cursive; }
 
-/* --- Question Animation --- */
-@keyframes fadeInSlide {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- Question Transition Animation --- */
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-.question-animation {
-    animation: fadeInSlide 0.4s ease-out forwards;
+.animate-question {
+    animation: slideUpFade 0.4s ease-out forwards;
 }
 
 /* --- Maze & Character --- */
@@ -38,7 +39,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-/* --- Quiz Box --- */
+/* --- Quiz Box & Buttons --- */
 #quiz-box {
     background: rgba(255, 255, 255, 0.1);
     width: 90%;
@@ -48,7 +49,6 @@ body {
     border-radius: 20px;
 }
 
-/* --- Buttons (As seen in image_58c5fd.png) --- */
 #options-container {
     display: flex;
     justify-content: center;
@@ -60,13 +60,13 @@ button {
     background: white;
     color: #173796;
     border: none;
-    padding: 15px 60px;
-    border-radius: 12px; /* Rectangular with slight curve */
+    padding: 18px 60px;
+    border-radius: 12px; /* Matches your rectangle style */
     font-weight: bold;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: 0.2s;
-    min-width: 200px;
+    transition: transform 0.2s, background 0.2s;
+    min-width: 220px;
 }
 
 button:hover {
@@ -74,31 +74,31 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* --- FIREWORK FIX --- */
+/* --- FIREWORK FIX (NO MORE GHOSTS) --- */
 .firework, .heartbreak {
     position: fixed; 
     font-size: 60px;
     bottom: -100px;
-    z-index: 1;
-    opacity: 0; /* Forced hidden */
+    z-index: -1; /* Puts them behind game until win */
+    display: none; /* Physically removes them from view */
     pointer-events: none;
 }
 
 #win-screen:not(.hidden) .firework,
 #lose-screen:not(.hidden) .heartbreak {
-    opacity: 1;
-    display: block !important;
+    display: block;
+    z-index: 2000; /* Brings them to front on win */
     animation: flyUp 3s linear infinite;
 }
 
 @keyframes flyUp {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-120vh) rotate(360deg); }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
-/* --- Utilities --- */
+/* --- Layout Utilities --- */
 .hidden { display: none !important; }
 .fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; background: #173796; }
 .bg-red { background: #b22222 !important; }
 .big-win { font-size: 5rem; margin: 0; }
-.credits { margin-top: 20px; font-size: 1.1rem; opacity: 0.9; }
+.credits { margin-top: 25px; font-size: 1.2rem; }
