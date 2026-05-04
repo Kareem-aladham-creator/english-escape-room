@@ -30,6 +30,7 @@ function loadQuestion() {
         const qData = questions[currentQ];
         const quizBox = document.getElementById("quiz-box");
 
+        // Force Animation Restart
         quizBox.classList.remove("animate-q");
         void quizBox.offsetWidth; 
         quizBox.classList.add("animate-q");
