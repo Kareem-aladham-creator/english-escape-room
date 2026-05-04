@@ -26,27 +26,27 @@ let currentQ = 0;
 
 // TRACED PATH FOR 20 QUESTIONS
 const mazePath = [
-    {t: 5, l: 4},   // Start (Top Left)
-    {t: 10, l: 4},  // Move down
-    {t: 15, l: 4},  // Corner 1
-    {t: 15, l: 14}, // Corner 2
-    {t: 20, l: 14}, // Move down
-    {t: 25, l: 14}, // Corner 3
-    {t: 25, l: 20}, // Corner 4
-    {t: 30, l: 20}, // Corner 5
-    {t: 30, l: 12}, // Turn back left
-    {t: 30, l: 4},  // Corner 6
-    {t: 35, l: 4},  // Move down
-    {t: 43, l: 4},  // Corner 7
-    {t: 48, l: 4},  // Move down
-    {t: 48, l: 16}, // Corner 8
-    {t: 58, l: 16}, // Move down
-    {t: 68, l: 16}, // Corner 9
-    {t: 68, l: 24}, // Corner 10
-    {t: 75, l: 24}, // Corner 11
-    {t: 75, l: 4},  // Corner 12
-    {t: 85, l: 4},  // Near bottom
-    {t: 94, l: 4}   // Exit (Bottom Left Arrow)
+    {t: 5, l: 3},   // Start Position (Top Left Entry)
+    {t: 12, l: 3},  // Move down the first corridor
+    {t: 15, l: 3},  // Corner 1: Prep to turn right
+    {t: 15, l: 15}, // Corner 2: Turn right into second hall
+    {t: 22, l: 15}, // Move down
+    {t: 26, l: 15}, // Corner 3: Prep to turn right again
+    {t: 26, l: 22}, // Corner 4: Turn right
+    {t: 30, l: 22}, // Corner 5: Move down
+    {t: 30, l: 14}, // Turn back left
+    {t: 30, l: 3},  // Corner 6: Back to far left wall
+    {t: 38, l: 3},  // Move down
+    {t: 44, l: 3},  // Corner 7: Prep to turn
+    {t: 48, l: 3},  // Move down further
+    {t: 48, l: 18}, // Corner 8: Turn right into middle section
+    {t: 58, l: 18}, // Move down middle
+    {t: 68, l: 18}, // Corner 9: Reach bottom middle hall
+    {t: 68, l: 25}, // Corner 10: Turn right toward edge
+    {t: 75, l: 25}, // Corner 11: Turn down
+    {t: 75, l: 3},  // Corner 12: Turn left back to wall
+    {t: 86, l: 3},  // Move down left wall
+    {t: 94, l: 3}   // Exit: Reaches the Bottom Arrow!
 ];
 
 function loadQuestion() {
