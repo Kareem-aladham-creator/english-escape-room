@@ -24,12 +24,29 @@ const questions = [
 let score = 0;
 let currentQ = 0;
 
+// TRACED PATH FOR 20 QUESTIONS
 const mazePath = [
-    {t: 5, l: 4},   {t: 10, l: 4},  {t: 15, l: 4},  {t: 15, l: 14}, 
-    {t: 20, l: 14}, {t: 25, l: 14}, {t: 25, l: 20}, {t: 30, l: 20}, 
-    {t: 30, l: 4},  {t: 40, l: 4},  {t: 48, l: 4},  {t: 48, l: 16}, 
-    {t: 58, l: 16}, {t: 68, l: 16}, {t: 68, l: 24}, {t: 75, l: 24}, 
-    {t: 75, l: 4},  {t: 80, l: 4},  {t: 85, l: 4},  {t: 90, l: 4}, {t: 94, l: 4}
+    {t: 5, l: 4},   // Start (Top Left)
+    {t: 10, l: 4},  // Move down
+    {t: 15, l: 4},  // Corner 1
+    {t: 15, l: 14}, // Corner 2
+    {t: 20, l: 14}, // Move down
+    {t: 25, l: 14}, // Corner 3
+    {t: 25, l: 20}, // Corner 4
+    {t: 30, l: 20}, // Corner 5
+    {t: 30, l: 12}, // Turn back left
+    {t: 30, l: 4},  // Corner 6
+    {t: 35, l: 4},  // Move down
+    {t: 43, l: 4},  // Corner 7
+    {t: 48, l: 4},  // Move down
+    {t: 48, l: 16}, // Corner 8
+    {t: 58, l: 16}, // Move down
+    {t: 68, l: 16}, // Corner 9
+    {t: 68, l: 24}, // Corner 10
+    {t: 75, l: 24}, // Corner 11
+    {t: 75, l: 4},  // Corner 12
+    {t: 85, l: 4},  // Near bottom
+    {t: 94, l: 4}   // Exit (Bottom Left Arrow)
 ];
 
 function loadQuestion() {
