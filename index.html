@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Escape Room v2</title>
+    <title>English Escape Room</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div id="game-container">
-        <h1 class="bubble-font">English Escape Room</h1>
+        <h1 id="game-title" class="bubble-font">English Escape Room</h1>
+        
         <div id="maze-container">
+            <!-- Simple Line Path -->
             <svg id="maze-svg" viewBox="0 0 100 100">
-                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="white" stroke-width="2" />
+                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" />
             </svg>
             <div id="character">🏃‍♂️</div>
         </div>
+
         <div id="quiz-wrapper">
-            <div id="quiz-box" class="slide-in">
+            <div id="quiz-box">
                 <h2 id="riddle-title" class="bubble-font">Riddle 1</h2>
                 <p id="question-text">Loading...</p>
                 <div id="options-container"></div>
             </div>
         </div>
     </div>
-    <div id="win-screen" class="hidden fullscreen"><h1>Winner!</h1><button onclick="resetGame()">Play Again</button></div>
-    <div id="lose-screen" class="hidden fullscreen bg-red"><h1>Hard Luck</h1><button onclick="resetGame()">Try Again</button></div>
+
+    <!-- Win Screen -->
+    <div id="win-screen" class="hidden fullscreen">
+        <h1 class="bubble-font">Winner🎉</h1>
+        <button onclick="resetGame()">Play Again</button>
+    </div>
+
+    <!-- Lose Screen -->
+    <div id="lose-screen" class="hidden fullscreen bg-red">
+        <h1 class="bubble-font">Hard Luck💔</h1>
+        <button onclick="resetGame()">Try Again</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
