@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Escape Room</title>
+    <title>English Escape Room V3</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div id="game-container">
         <h1 class="bubble-font">English Escape Room</h1>
-        
         <div id="maze-container">
             <svg id="maze-svg" viewBox="0 0 100 100">
-                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="white" stroke-width="3" />
             </svg>
             <div id="character">🏃‍♂️</div>
         </div>
-
         <div id="quiz-wrapper">
             <div id="quiz-box">
                 <h2 id="riddle-title" class="bubble-font">Riddle 1</h2>
@@ -28,11 +25,8 @@
         </div>
     </div>
 
-    <!-- Win Screen -->
     <div id="win-screen" class="hidden fullscreen">
-        <div class="firework">🎆</div>
-        <div class="firework">✨</div>
-        <div class="firework">🎇</div>
+        <div class="firework">🎆</div><div class="firework">✨</div><div class="firework">🎇</div>
         <h1 class="big-win bubble-font">Winner🎉🎉🥇</h1>
         <button onclick="resetGame()">Play Again</button>
         <div class="credits">
@@ -42,14 +36,11 @@
         </div>
     </div>
 
-    <!-- Lose Screen -->
     <div id="lose-screen" class="hidden fullscreen bg-red">
-        <div class="heartbreak">💔</div>
-        <div class="heartbreak">🥀</div>
+        <div class="heartbreak">💔</div><div class="heartbreak">🥀</div>
         <h1 class="bubble-font">Hard Luck💔</h1>
         <button onclick="resetGame()">Try Again</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
