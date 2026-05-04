@@ -28,10 +28,19 @@ const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:
 function loadQuestion() {
     if (currentQ < questions.length) {
         const qData = questions[currentQ];
+        const quizBox = document.getElementById("quiz-box");
+
+        // Trigger animation reset
+        quizBox.classList.remove("question-animation");
+        void quizBox.offsetWidth; 
+        quizBox.classList.add("question-animation");
+
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
         document.getElementById("question-text").innerText = qData.q;
+        
         const container = document.getElementById("options-container");
         container.innerHTML = "";
+        
         qData.options.forEach(opt => {
             const btn = document.createElement("button");
             btn.innerText = opt;
@@ -53,7 +62,9 @@ function checkAnswer(selected) {
                 document.getElementById("game-container").classList.add("hidden");
                 document.getElementById("win-screen").classList.remove("hidden");
             }, 600);
-        } else { loadQuestion(); }
+        } else {
+            loadQuestion();
+        }
     } else {
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
@@ -61,7 +72,8 @@ function checkAnswer(selected) {
 }
 
 function resetGame() {
-    score = 0; currentQ = 0;
+    score = 0;
+    currentQ = 0;
     document.getElementById("character").style.top = "5%";
     document.getElementById("character").style.left = "5%";
     document.getElementById("win-screen").classList.add("hidden");
@@ -69,4 +81,5 @@ function resetGame() {
     document.getElementById("game-container").classList.remove("hidden");
     loadQuestion();
 }
+
 loadQuestion();
