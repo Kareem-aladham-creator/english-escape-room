@@ -10,6 +10,13 @@
 <body>
 
     <div id="game-container">
+        <!-- Floating Background Words -->
+        <div class="bg-word" style="top: 10%; left: 5%;">Grammar</div>
+        <div class="bg-word" style="top: 20%; right: 10%;">Verb</div>
+        <div class="bg-word" style="top: 50%; left: 8%;">ABC</div>
+        <div class="bg-word" style="bottom: 15%; right: 5%;">Noun</div>
+        <div class="bg-word" style="bottom: 10%; left: 15%;">Tense</div>
+
         <h1 class="bubble-font floating-words">English Escape Room</h1>
         
         <div id="maze-container">
@@ -26,18 +33,17 @@
         </div>
     </div>
 
-    <!-- WIN SCREEN: MULTI-FIREWORK OVERLOAD -->
+    <!-- WIN SCREEN: SPREAD ACROSS LEFT, MIDDLE, RIGHT -->
     <div id="win-screen" class="hidden fullscreen">
-        <div class="firework" style="left: 2%;  animation-duration: 2.1s;">🎆</div>
-        <div class="firework" style="left: 12%; animation-duration: 3.5s;">✨</div>
-        <div class="firework" style="left: 22%; animation-duration: 2.8s;">🎉</div>
-        <div class="firework" style="left: 32%; animation-duration: 4.2s;">🎇</div>
-        <div class="firework" style="left: 42%; animation-duration: 2.5s;">🎊</div>
-        <div class="firework" style="left: 52%; animation-duration: 3.1s;">🎆</div>
-        <div class="firework" style="left: 62%; animation-duration: 2.3s;">✨</div>
-        <div class="firework" style="left: 72%; animation-duration: 3.9s;">🎉</div>
-        <div class="firework" style="left: 82%; animation-duration: 2.7s;">🎇</div>
-        <div class="firework" style="left: 92%; animation-duration: 3.3s;">🎊</div>
+        <div class="firework" style="left: 5%;">🎆</div>
+        <div class="firework" style="left: 15%;">✨</div>
+        <div class="firework" style="left: 25%;">🎉</div>
+        <div class="firework" style="left: 35%;">🎇</div>
+        <div class="firework" style="left: 50%;">🎊</div>
+        <div class="firework" style="left: 65%;">🎆</div>
+        <div class="firework" style="left: 75%;">✨</div>
+        <div class="firework" style="left: 85%;">🎉</div>
+        <div class="firework" style="left: 95%;">🎇</div>
         
         <h1 class="big-win bubble-font floating-words">Winner 🎉🥇</h1>
         <button class="modern-btn" onclick="resetGame()">Play Again</button>
@@ -48,18 +54,14 @@
         </div>
     </div>
 
-    <!-- LOSE SCREEN: HEARTBREAK OVERLOAD -->
+    <!-- LOSE SCREEN: SPREAD ACROSS LEFT, MIDDLE, RIGHT -->
     <div id="lose-screen" class="hidden fullscreen bg-red">
-        <div class="heartbreak" style="left: 5%;  animation-duration: 2.4s;">💔</div>
-        <div class="heartbreak" style="left: 15%; animation-duration: 3.2s;">😭</div>
-        <div class="heartbreak" style="left: 25%; animation-duration: 2.1s;">💔</div>
-        <div class="heartbreak" style="left: 35%; animation-duration: 4.0s;">⛈️</div>
-        <div class="heartbreak" style="left: 45%; animation-duration: 2.7s;">💔</div>
-        <div class="heartbreak" style="left: 55%; animation-duration: 3.5s;">😭</div>
-        <div class="heartbreak" style="left: 65%; animation-duration: 2.2s;">💔</div>
-        <div class="heartbreak" style="left: 75%; animation-duration: 3.8s;">⛈️</div>
-        <div class="heartbreak" style="left: 85%; animation-duration: 2.9s;">💔</div>
-        <div class="heartbreak" style="left: 95%; animation-duration: 3.4s;">😭</div>
+        <div class="heartbreak" style="left: 5%;">💔</div>
+        <div class="heartbreak" style="left: 20%;">😭</div>
+        <div class="heartbreak" style="left: 40%;">💔</div>
+        <div class="heartbreak" style="left: 60%;">⛈️</div>
+        <div class="heartbreak" style="left: 80%;">💔</div>
+        <div class="heartbreak" style="left: 95%;">😭</div>
 
         <h1 class="bubble-font floating-words">Hard Luck 💔</h1>
         <button class="modern-btn" onclick="resetGame()">Try Again</button>
