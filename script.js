@@ -1,3 +1,6 @@
+const correctSound = new Audio('correct.mp3');
+const wrongSound = new Audio('wrong.mp3');
+
 const questions = [
     { q: "The captain is _____?", options: ["whom", "who"], a: "who" },
     { q: "By _____ was this masterpiece painted?", options: ["who", "whom"], a: "whom" },
@@ -18,12 +21,18 @@ const questions = [
     { q: "Correct: 'I don't want nothing for my birthday.'", options: ["I don't want anything for my birthday.", "I don't want none for my birthday."], a: "I don't want anything for my birthday." },
     { q: "Which is grammatically correct?", options: ["Don't have no homework", "The students have no homework today."], a: "The students have no homework today." },
     { q: "Identify the double negative: 'We didn't see nobody.'", options: ["didn't and nobody", "We and nobody"], a: "didn't and nobody" },
-    { q: "Can 'any' replace 'none' in 'I haven't none'?", options: ["any", "nothing"], a: "any" }
+    { q: "Can 'any' replace 'none' in 'I haven't none'?", options: ["any", "nothing"], a: "any" },
+    // Adding 5 more for the "Race to 25" rule
+    { q: "Choose the proper noun:", options: ["London", "city"], a: "London" },
+    { q: "Which is an adjective?", options: ["Run", "Beautiful"], a: "Beautiful" },
+    { q: "Past tense of 'eat'?", options: ["Ate", "Eaten"], a: "Ate" },
+    { q: "Plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
+    { q: "Which word is a conjunction?", options: ["But", "Quickly"], a: "But" }
 ];
 
 let score = 0;
 let currentQ = 0;
-const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:5},{t:40,l:15},{t:40,l:25},{t:40,l:33},{t:40,l:40},{t:48,l:40},{t:56,l:40},{t:64,l:40},{t:70,l:40},{t:70,l:50},{t:70,l:60},{t:70,l:70},{t:70,l:80},{t:78,l:80},{t:86,l:80},{t:94,l:80}];
+const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:5},{t:40,l:15},{t:40,l:25},{t:40,l:33},{t:40,l:40},{t:48,l:40},{t:56,l:40},{t:64,l:40},{t:70,l:40},{t:70,l:50},{t:70,l:60},{t:70,l:70},{t:70,l:80},{t:78,l:80},{t:86,l:80},{t:94,l:80},{t:94,l:85},{t:94,l:90},{t:94,l:95},{t:94,l:99}];
 
 function loadQuestion() {
     if (currentQ < questions.length) {
@@ -43,12 +52,22 @@ function loadQuestion() {
 
 function checkAnswer(selected) {
     if (selected === questions[currentQ].a) {
+        correctSound.play();
+        
+        // Turn screen green
+        document.body.classList.add("correct-flash");
+        setTimeout(() => document.body.classList.remove("correct-flash"), 500);
+
         score++;
         currentQ++;
-        const pos = mazePath[score];
-        document.getElementById("character").style.top = pos.t + "%";
-        document.getElementById("character").style.left = pos.l + "%";
-        if (score === 20) {
+        
+        if (score < mazePath.length) {
+            const pos = mazePath[score];
+            document.getElementById("character").style.top = pos.t + "%";
+            document.getElementById("character").style.left = pos.l + "%";
+        }
+
+        if (score >= 25) {
             setTimeout(() => {
                 document.getElementById("game-container").classList.add("hidden");
                 document.getElementById("win-screen").classList.remove("hidden");
@@ -57,6 +76,7 @@ function checkAnswer(selected) {
             loadQuestion();
         }
     } else {
+        wrongSound.play();
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
     }
