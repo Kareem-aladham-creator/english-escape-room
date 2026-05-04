@@ -9,31 +9,96 @@ body {
 
 .bubble-font { font-family: 'DynaPuff', cursive; }
 
+/* --- Floating Faded Background --- */
+.floating-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.float-item {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.1); /* Faded look */
+    font-size: 2rem;
+    font-weight: bold;
+    animation: floatingAround 10s infinite ease-in-out;
+}
+
+/* Scattering them across the screen */
+.float-item:nth-child(1) { top: 10%; left: 10%; animation-duration: 12s; }
+.float-item:nth-child(2) { top: 20%; left: 80%; animation-duration: 8s; }
+.float-item:nth-child(3) { top: 70%; left: 15%; animation-duration: 15s; }
+.float-item:nth-child(4) { top: 80%; left: 70%; animation-duration: 10s; }
+.float-item:nth-child(5) { top: 40%; left: 50%; animation-duration: 11s; }
+.float-item:nth-child(6) { top: 5%; left: 40%; animation-duration: 9s; }
+
+@keyframes floatingAround {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(20px); }
+}
+
+/* --- Game Layout --- */
 #maze-container {
     position: relative;
     width: 330px;
     height: 330px;
     background: #0047ff !important; 
     border: 4px solid white;
-    border-radius: 15px;
+    border-radius: 20px;
     margin: 20px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 #maze-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 #character {
     position: absolute;
-    font-size: 24px; 
+    font-size: 26px; 
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 10;
     transform: translate(-50%, -50%);
     top: 5%; left: 5%;
 }
 
+/* --- New Button Styling with Hover Animations --- */
+#options-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+button {
+    background: white;
+    color: #173796;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 50px; /* Rounded pill look */
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Hover Effect */
+button:hover {
+    transform: translateY(-5px) scale(1.05); /* Moves up and gets bigger */
+    background: #ffd700; /* Changes to gold on hover */
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+/* Active/Click Effect */
+button:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* --- Win/Lose screens --- */
 .big-win {
     font-size: 4.5rem !important;
     text-shadow: 0 0 30px gold;
-    margin-bottom: 20px;
     animation: pulse 1s infinite alternate;
 }
 
@@ -42,30 +107,13 @@ body {
     to { transform: scale(1.1); }
 }
 
-.credits {
-    margin-top: 30px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    line-height: 1.5;
-}
-
-/* FIREWORK ANIMATION CODE */
 .firework, .heartbreak {
     position: fixed; 
     font-size: 60px;
-    bottom: -100px; /* Start below the screen */
+    bottom: -100px;
     animation: flyUp 4s linear infinite;
     z-index: 1;
-    pointer-events: none;
 }
-
-.firework:nth-child(1) { left: 10%; animation-delay: 0s; }
-.firework:nth-child(2) { left: 45%; animation-delay: 1.5s; }
-.firework:nth-child(3) { left: 80%; animation-delay: 0.5s; }
-
-.heartbreak:nth-child(1) { left: 15%; animation-delay: 0s; }
-.heartbreak:nth-child(2) { left: 50%; animation-delay: 2s; }
-.heartbreak:nth-child(3) { left: 85%; animation-delay: 1s; }
 
 @keyframes flyUp {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
@@ -75,25 +123,12 @@ body {
 #quiz-box {
     background: rgba(255, 255, 255, 0.1);
     width: 85%;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-}
-
-button {
-    width: 260px;
-    padding: 15px;
-    margin: 10px auto;
-    border-radius: 12px;
-    border: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    background: white;
-    color: #173796;
-    z-index: 10;
-    position: relative;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .hidden { display: none !important; }
