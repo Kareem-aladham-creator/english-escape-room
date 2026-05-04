@@ -7,16 +7,13 @@ body {
     overflow: hidden;
 }
 
-.bubble-font {
-    font-family: 'DynaPuff', cursive;
-    margin: 10px 0;
-}
+.bubble-font { font-family: 'DynaPuff', cursive; }
 
 #maze-container {
     position: relative;
     width: 330px;
     height: 330px;
-    background-color: #0047ff; 
+    background: #0047ff; /* Clean blue background only */
     border: 4px solid white;
     border-radius: 15px;
     margin: 20px auto;
@@ -31,7 +28,6 @@ body {
 #character {
     position: absolute;
     font-size: 24px; 
-    /* Bouncy movement transition */
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 10;
     transform: translate(-50%, -50%);
@@ -47,7 +43,6 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* Slide-In Animation */
 .slide-in {
     animation: slideUp 0.5s ease-out forwards;
 }
@@ -58,25 +53,17 @@ body {
 }
 
 button {
-    display: block;
     width: 100%;
     padding: 15px;
     margin: 10px 0;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 12px;
+    border-radius: 10px;
     border: none;
+    font-weight: bold;
     cursor: pointer;
     background: white;
     color: #173796;
 }
 
 .hidden { display: none !important; }
-
-.fullscreen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 100;
-}
-
-.bg-red { background-color: #b22222 !important; }: #8b0000 !important; }
+.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+.bg-red { background: #b22222; }
