@@ -9,6 +9,16 @@
 </head>
 <body>
 
+    <!-- Floating Background Decor -->
+    <div class="floating-bg">
+        <span class="float-item">abc</span>
+        <span class="float-item">Grammar</span>
+        <span class="float-item">Verb</span>
+        <span class="float-item">Noun</span>
+        <span class="float-item">English</span>
+        <span class="float-item">A+</span>
+    </div>
+
     <div id="game-container">
         <h1 class="bubble-font">English Escape Room</h1>
         <div id="maze-container">
@@ -31,11 +41,14 @@
         <div class="firework">🎆</div>
         <div class="firework">✨</div>
         <div class="firework">🎇</div>
+        <div class="firework">🎆</div>
+        <div class="firework">✨</div>
+        <div class="firework">🎇</div>
         <h1 class="big-win bubble-font">Winner🎉🎉🥇</h1>
-        <button onclick="resetGame()">Play Again</button>
+        <button class="menu-btn" onclick="resetGame()">Play Again</button>
         <div class="credits">
             <p>Made by Kareem Aladham</p>
-            <p>Teacher Hiba Hilal</p>
+            <p> Teacher Hiba Hilal</p>
             <p>8A</p>
         </div>
     </div>
@@ -45,42 +58,11 @@
         <div class="heartbreak">💔</div>
         <div class="heartbreak">💔</div>
         <div class="heartbreak">💔</div>
-        <h1 class="bubble-font">Hard Luck💔</h1>
-        <button onclick="resetGame()">Try Again</button>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-        <div class="firework">🎉</div>
-        <div class="firework">🎉</div>
-        <div class="firework">🎉</div>
-        <div class="firework">🎉</div>
-        <div class="firework">🎉</div>
-        <div class="firework">🎉</div>
-        
-        <h1 class="big-win bubble-font">Winner🎉🎉🥇</h1>
-        
-        <button onclick="resetGame()">Play Again</button>
-        
-        <div class="credits">
-            <p>Made by Kareem Aladham</p>
-            <p>Teacher Hiba Hilal</p>
-            <p>8A</p>
-        </div>
-    </div>
-
-    <!-- Lose Screen -->
-    <div id="lose-screen" class="hidden fullscreen bg-red">
-        <!-- Flying Heartbreaks -->
         <div class="heartbreak">💔</div>
         <div class="heartbreak">💔</div>
-         <div class="heartbreak">💔</div>
-         <div class="heartbreak">💔</div>
-         <div class="heartbreak">💔</div>
-         <div class="heartbreak">💔</div>
+        <div class="heartbreak">💔</div>
         <h1 class="bubble-font">Hard Luck💔</h1>
-        <button onclick="resetGame()">Try Again</button>
+        <button class="menu-btn" onclick="resetGame()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
