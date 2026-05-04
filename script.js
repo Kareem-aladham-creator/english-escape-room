@@ -24,7 +24,6 @@ const questions = [
 let score = 0;
 let currentQ = 0;
 
-// Path Traced from Screenshot (161).png
 const mazePath = [
     {t: 5, l: 4},   {t: 10, l: 4},  {t: 15, l: 4},  {t: 15, l: 14}, 
     {t: 20, l: 14}, {t: 25, l: 14}, {t: 25, l: 20}, {t: 30, l: 20}, 
@@ -33,38 +32,7 @@ const mazePath = [
     {t: 75, l: 4},  {t: 80, l: 4},  {t: 85, l: 4},  {t: 90, l: 4}, {t: 94, l: 4}
 ];
 
-function spawnBgWords() {
-    const container = document.getElementById("maze-container");
-    const words = ["abc", "grammar", "verb", "noun", "quiz", "riddle"];
-    for(let i=0; i<12; i++) {
-        const span = document.createElement("span");
-        span.innerText = words[Math.floor(Math.random() * words.length)];
-        span.className = "bg-word";
-        span.style.top = Math.random() * 85 + "%";
-        span.style.left = Math.random() * 85 + "%";
-        span.style.animationDelay = Math.random() * 4 + "s";
-        container.appendChild(span);
-    }
-}
-
-function spawnEmojis(containerId, emoji) {
-    const container = document.getElementById(containerId);
-    for(let i=0; i<15; i++) {
-        const span = document.createElement("span");
-        span.innerText = emoji;
-        span.className = "flying-emoji";
-        span.style.left = Math.random() * 100 + "vw";
-        span.style.animationDelay = Math.random() * 2 + "s";
-        container.appendChild(span);
-    }
-}
-
 function loadQuestion() {
-    const box = document.getElementById("quiz-box");
-    box.classList.remove("slide-in");
-    void box.offsetWidth; 
-    box.classList.add("slide-in");
-
     if (currentQ < questions.length) {
         const qData = questions[currentQ];
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
@@ -89,33 +57,15 @@ function checkAnswer(selected) {
         document.getElementById("character").style.left = pos.l + "%";
 
         if (score === 20) {
-            setTimeout(() => {
-                document.getElementById("game-container").classList.add("hidden");
-                document.getElementById("win-screen").classList.remove("hidden");
-                spawnEmojis("win-emojis", "🎉");
-            }, 300);
+            document.getElementById("game-container").classList.add("hidden");
+            document.getElementById("win-screen").classList.remove("hidden");
         } else {
             loadQuestion();
         }
     } else {
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
-        spawnEmojis("lose-emojis", "💔");
     }
 }
 
-function resetGame() {
-    score = 0; currentQ = 0;
-    const char = document.getElementById("character");
-    char.style.top = mazePath[0].t + "%";
-    char.style.left = mazePath[0].l + "%";
-    document.getElementById("win-emojis").innerHTML = "";
-    document.getElementById("lose-emojis").innerHTML = "";
-    document.getElementById("win-screen").classList.add("hidden");
-    document.getElementById("lose-screen").classList.add("hidden");
-    document.getElementById("game-container").classList.remove("hidden");
-    loadQuestion();
-}
-
-spawnBgWords();
 loadQuestion();
