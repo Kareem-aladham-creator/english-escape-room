@@ -24,20 +24,16 @@ const questions = [
 let score = 0;
 let currentQ = 0;
 
+// Path for the character to move along the lines
 const mazePath = [
-    {t: 5, l: 5},   {t: 15, l: 5},  {t: 25, l: 5},  {t: 35, l: 5}, 
-    {t: 40, l: 5},  {t: 40, l: 15}, {t: 40, l: 25}, {t: 40, l: 35}, 
-    {t: 40, l: 40}, {t: 50, l: 40}, {t: 60, l: 40}, {t: 70, l: 40}, 
-    {t: 70, l: 50}, {t: 70, l: 60}, {t: 70, l: 70}, {t: 70, l: 80}, 
-    {t: 75, l: 80}, {t: 82, l: 80}, {t: 88, l: 80}, {t: 95, l: 80}, {t: 95, l: 80}
+    {t: 5, l: 5},   {t: 12, l: 5},  {t: 19, l: 5},  {t: 26, l: 5}, 
+    {t: 33, l: 5},  {t: 40, l: 5},  {t: 40, l: 15}, {t: 40, l: 25}, 
+    {t: 40, l: 33}, {t: 40, l: 40}, {t: 48, l: 40}, {t: 56, l: 40}, 
+    {t: 64, l: 40}, {t: 70, l: 40}, {t: 70, l: 50}, {t: 70, l: 60}, 
+    {t: 70, l: 70}, {t: 70, l: 80}, {t: 78, l: 80}, {t: 86, l: 80}, {t: 94, l: 80}
 ];
 
 function loadQuestion() {
-    const quizBox = document.getElementById("quiz-box");
-    quizBox.classList.remove("slide-in");
-    void quizBox.offsetWidth; 
-    quizBox.classList.add("slide-in");
-
     if (currentQ < questions.length) {
         const qData = questions[currentQ];
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
@@ -60,9 +56,15 @@ function checkAnswer(selected) {
         const pos = mazePath[score];
         document.getElementById("character").style.top = pos.t + "%";
         document.getElementById("character").style.left = pos.l + "%";
+
         if (score === 20) {
-            setTimeout(() => { document.getElementById("game-container").classList.add("hidden"); document.getElementById("win-screen").classList.remove("hidden"); }, 600);
-        } else { loadQuestion(); }
+            setTimeout(() => {
+                document.getElementById("game-container").classList.add("hidden");
+                document.getElementById("win-screen").classList.remove("hidden");
+            }, 600);
+        } else {
+            loadQuestion();
+        }
     } else {
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
@@ -70,7 +72,8 @@ function checkAnswer(selected) {
 }
 
 function resetGame() {
-    score = 0; currentQ = 0;
+    score = 0;
+    currentQ = 0;
     document.getElementById("character").style.top = "5%";
     document.getElementById("character").style.left = "5%";
     document.getElementById("win-screen").classList.add("hidden");
