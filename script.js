@@ -30,10 +30,10 @@ function loadQuestion() {
         const qData = questions[currentQ];
         const quizBox = document.getElementById("quiz-box");
 
-        // Trigger animation reset
-        quizBox.classList.remove("question-animation");
+        // Force Animation Restart
+        quizBox.classList.remove("animate-question");
         void quizBox.offsetWidth; 
-        quizBox.classList.add("question-animation");
+        quizBox.classList.add("animate-question");
 
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
         document.getElementById("question-text").innerText = qData.q;
@@ -72,8 +72,7 @@ function checkAnswer(selected) {
 }
 
 function resetGame() {
-    score = 0;
-    currentQ = 0;
+    score = 0; currentQ = 0;
     document.getElementById("character").style.top = "5%";
     document.getElementById("character").style.left = "5%";
     document.getElementById("win-screen").classList.add("hidden");
