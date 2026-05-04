@@ -24,32 +24,22 @@ const questions = [
 let score = 0;
 let currentQ = 0;
 
-// TRACED PATH FOR 20 QUESTIONS
+// Path for 20 questions
 const mazePath = [
-    {t: 5, l: 3},   // Start Position (Top Left Entry)
-    {t: 12, l: 3},  // Move down the first corridor
-    {t: 15, l: 3},  // Corner 1: Prep to turn right
-    {t: 15, l: 15}, // Corner 2: Turn right into second hall
-    {t: 22, l: 15}, // Move down
-    {t: 26, l: 15}, // Corner 3: Prep to turn right again
-    {t: 26, l: 22}, // Corner 4: Turn right
-    {t: 30, l: 22}, // Corner 5: Move down
-    {t: 30, l: 14}, // Turn back left
-    {t: 30, l: 3},  // Corner 6: Back to far left wall
-    {t: 38, l: 3},  // Move down
-    {t: 44, l: 3},  // Corner 7: Prep to turn
-    {t: 48, l: 3},  // Move down further
-    {t: 48, l: 18}, // Corner 8: Turn right into middle section
-    {t: 58, l: 18}, // Move down middle
-    {t: 68, l: 18}, // Corner 9: Reach bottom middle hall
-    {t: 68, l: 25}, // Corner 10: Turn right toward edge
-    {t: 75, l: 25}, // Corner 11: Turn down
-    {t: 75, l: 3},  // Corner 12: Turn left back to wall
-    {t: 86, l: 3},  // Move down left wall
-    {t: 94, l: 3}   // Exit: Reaches the Bottom Arrow!
+    {t: 5, l: 5},   {t: 12, l: 5},  {t: 19, l: 5},  {t: 26, l: 5}, 
+    {t: 33, l: 5},  {t: 40, l: 5},  {t: 40, l: 15}, {t: 40, l: 25}, 
+    {t: 40, l: 33}, {t: 40, l: 40}, {t: 48, l: 40}, {t: 56, l: 40}, 
+    {t: 64, l: 40}, {t: 70, l: 40}, {t: 70, l: 50}, {t: 70, l: 60}, 
+    {t: 70, l: 70}, {t: 70, l: 80}, {t: 78, l: 80}, {t: 86, l: 80}, {t: 94, l: 80}
 ];
 
 function loadQuestion() {
+    const quizBox = document.getElementById("quiz-box");
+    // Animation trigger
+    quizBox.classList.remove("slide-in");
+    void quizBox.offsetWidth; 
+    quizBox.classList.add("slide-in");
+
     if (currentQ < questions.length) {
         const qData = questions[currentQ];
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
@@ -74,8 +64,10 @@ function checkAnswer(selected) {
         document.getElementById("character").style.left = pos.l + "%";
 
         if (score === 20) {
-            document.getElementById("game-container").classList.add("hidden");
-            document.getElementById("win-screen").classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("game-container").classList.add("hidden");
+                document.getElementById("win-screen").classList.remove("hidden");
+            }, 600);
         } else {
             loadQuestion();
         }
@@ -83,6 +75,17 @@ function checkAnswer(selected) {
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
     }
+}
+
+function resetGame() {
+    score = 0;
+    currentQ = 0;
+    document.getElementById("character").style.top = "5%";
+    document.getElementById("character").style.left = "5%";
+    document.getElementById("win-screen").classList.add("hidden");
+    document.getElementById("lose-screen").classList.add("hidden");
+    document.getElementById("game-container").classList.remove("hidden");
+    loadQuestion();
 }
 
 loadQuestion();
