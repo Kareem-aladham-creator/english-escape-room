@@ -30,10 +30,9 @@ function loadQuestion() {
         const qData = questions[currentQ];
         const quizBox = document.getElementById("quiz-box");
 
-        // Force Animation Restart
-        quizBox.classList.remove("animate-question");
+        quizBox.classList.remove("animate-q");
         void quizBox.offsetWidth; 
-        quizBox.classList.add("animate-question");
+        quizBox.classList.add("animate-q");
 
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
         document.getElementById("question-text").innerText = qData.q;
@@ -61,7 +60,7 @@ function checkAnswer(selected) {
             setTimeout(() => {
                 document.getElementById("game-container").classList.add("hidden");
                 document.getElementById("win-screen").classList.remove("hidden");
-            }, 600);
+            }, 500);
         } else {
             loadQuestion();
         }
