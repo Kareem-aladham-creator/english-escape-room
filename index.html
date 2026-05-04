@@ -10,12 +10,13 @@
 <body>
 
     <div id="game-container">
-        <h1 id="game-title" class="bubble-font">English Escape Room</h1>
+        <h1 class="bubble-font">English Escape Room</h1>
         
         <div id="maze-container">
-            <!-- Simple Line Path -->
+            <!-- This SVG is the only thing that will show now -->
             <svg id="maze-svg" viewBox="0 0 100 100">
-                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <text x="82" y="98" font-size="5" fill="white">EXIT</text>
             </svg>
             <div id="character">🏃‍♂️</div>
         </div>
@@ -29,13 +30,11 @@
         </div>
     </div>
 
-    <!-- Win Screen -->
     <div id="win-screen" class="hidden fullscreen">
         <h1 class="bubble-font">Winner🎉</h1>
         <button onclick="resetGame()">Play Again</button>
     </div>
 
-    <!-- Lose Screen -->
     <div id="lose-screen" class="hidden fullscreen bg-red">
         <h1 class="bubble-font">Hard Luck💔</h1>
         <button onclick="resetGame()">Try Again</button>
