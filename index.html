@@ -10,7 +10,8 @@
 <body>
 
     <div id="game-container">
-        <h1 class="bubble-font">English Escape Room</h1>
+        <!-- Floating Words -->
+        <h1 class="bubble-font floating-words crazy-float">English Escape Room</h1>
         
         <div id="maze-container">
             <svg id="maze-svg" viewBox="0 0 100 100">
@@ -20,17 +21,29 @@
         </div>
 
         <div id="quiz-box">
-            <h2 id="riddle-title" class="bubble-font">Riddle 1</h2>
-            <p id="question-text">The captain is ___?</p>
+            <!-- Floating Words -->
+            <h2 id="riddle-title" class="bubble-font floating-words">Riddle 1</h2>
+            <p id="question-text">Loading...</p>
             <div id="options-container"></div>
         </div>
     </div>
 
-    <!-- CLEAN WIN SCREEN -->
+    <!-- WIN SCREEN WITH MASSIVE FLYING ANIMATIONS -->
     <div id="win-screen" class="hidden fullscreen">
-        <div class="firework">🎆</div><div class="firework">✨</div><div class="firework">🎇</div>
-        <h1 class="big-win bubble-font">Winner 🎉🥇</h1>
-        <button class="menu-btn" onclick="resetGame()">Play Again</button>
+        <!-- So much flying stuff -->
+        <div class="firework" style="left: 5%; animation-duration: 2s; animation-delay: 0s;">🎆</div>
+        <div class="firework" style="left: 15%; animation-duration: 3.5s; animation-delay: 0.2s;">✨</div>
+        <div class="firework" style="left: 25%; animation-duration: 2.5s; animation-delay: 0.5s;">🎉</div>
+        <div class="firework" style="left: 35%; animation-duration: 4s; animation-delay: 0.1s;">🎇</div>
+        <div class="firework" style="left: 45%; animation-duration: 2.8s; animation-delay: 0.8s;">🎊</div>
+        <div class="firework" style="left: 55%; animation-duration: 3s; animation-delay: 0.3s;">🎆</div>
+        <div class="firework" style="left: 65%; animation-duration: 2.2s; animation-delay: 0.6s;">✨</div>
+        <div class="firework" style="left: 75%; animation-duration: 3.8s; animation-delay: 0s;">🎉</div>
+        <div class="firework" style="left: 85%; animation-duration: 2.6s; animation-delay: 0.4s;">🎇</div>
+        <div class="firework" style="left: 95%; animation-duration: 3.2s; animation-delay: 0.7s;">🎊</div>
+        
+        <h1 class="big-win bubble-font floating-words crazy-float">Winner 🎉🥇</h1>
+        <button class="modern-btn" onclick="resetGame()">Play Again</button>
         <div class="credits">
             <p>Made by Kareem Aladham</p>
             <p>Teacher Hiba Hilal</p>
@@ -38,14 +51,16 @@
         </div>
     </div>
 
-    <!-- CLEAN LOSE SCREEN -->
+    <!-- LOSE SCREEN WITH MASSIVE FLYING ANIMATIONS -->
     <div id="lose-screen" class="hidden fullscreen bg-red">
-        <div class="heartbreak">💔</div>
-        <div class="heartbreak">💔</div>
-        <div class="heartbreak">💔</div>
-        <div class="heartbreak">💔</div>
-        <h1 class="bubble-font">Hard Luck 💔</h1>
-        <button class="menu-btn" onclick="resetGame()">Try Again</button>
+        <div class="heartbreak" style="left: 10%; animation-duration: 2.5s; animation-delay: 0s;">💔</div>
+        <div class="heartbreak" style="left: 30%; animation-duration: 3s; animation-delay: 0.4s;">😭</div>
+        <div class="heartbreak" style="left: 50%; animation-duration: 2s; animation-delay: 0.2s;">💔</div>
+        <div class="heartbreak" style="left: 70%; animation-duration: 3.5s; animation-delay: 0.6s;">😭</div>
+        <div class="heartbreak" style="left: 90%; animation-duration: 2.8s; animation-delay: 0.1s;">💔</div>
+
+        <h1 class="bubble-font floating-words crazy-float">Hard Luck 💔</h1>
+        <button class="modern-btn" onclick="resetGame()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
