@@ -23,15 +23,7 @@ const questions = [
 
 let score = 0;
 let currentQ = 0;
-
-// Path for the character to move along the lines
-const mazePath = [
-    {t: 5, l: 5},   {t: 12, l: 5},  {t: 19, l: 5},  {t: 26, l: 5}, 
-    {t: 33, l: 5},  {t: 40, l: 5},  {t: 40, l: 15}, {t: 40, l: 25}, 
-    {t: 40, l: 33}, {t: 40, l: 40}, {t: 48, l: 40}, {t: 56, l: 40}, 
-    {t: 64, l: 40}, {t: 70, l: 40}, {t: 70, l: 50}, {t: 70, l: 60}, 
-    {t: 70, l: 70}, {t: 70, l: 80}, {t: 78, l: 80}, {t: 86, l: 80}, {t: 94, l: 80}
-];
+const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:5},{t:40,l:15},{t:40,l:25},{t:40,l:33},{t:40,l:40},{t:48,l:40},{t:56,l:40},{t:64,l:40},{t:70,l:40},{t:70,l:50},{t:70,l:60},{t:70,l:70},{t:70,l:80},{t:78,l:80},{t:86,l:80},{t:94,l:80}];
 
 function loadQuestion() {
     if (currentQ < questions.length) {
@@ -56,15 +48,12 @@ function checkAnswer(selected) {
         const pos = mazePath[score];
         document.getElementById("character").style.top = pos.t + "%";
         document.getElementById("character").style.left = pos.l + "%";
-
         if (score === 20) {
             setTimeout(() => {
                 document.getElementById("game-container").classList.add("hidden");
                 document.getElementById("win-screen").classList.remove("hidden");
             }, 600);
-        } else {
-            loadQuestion();
-        }
+        } else { loadQuestion(); }
     } else {
         document.getElementById("game-container").classList.add("hidden");
         document.getElementById("lose-screen").classList.remove("hidden");
@@ -72,8 +61,7 @@ function checkAnswer(selected) {
 }
 
 function resetGame() {
-    score = 0;
-    currentQ = 0;
+    score = 0; currentQ = 0;
     document.getElementById("character").style.top = "5%";
     document.getElementById("character").style.left = "5%";
     document.getElementById("win-screen").classList.add("hidden");
@@ -81,5 +69,4 @@ function resetGame() {
     document.getElementById("game-container").classList.remove("hidden");
     loadQuestion();
 }
-
 loadQuestion();
