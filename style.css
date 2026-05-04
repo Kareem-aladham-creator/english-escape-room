@@ -1,31 +1,37 @@
+/* --- Global Styles --- */
 body {
-    background-color: #173796 !important; 
+    background-color: #173796 !important; /* Matches your current blue theme */
     color: white;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     text-align: center;
     margin: 0;
-    overflow: hidden; 
+    overflow: hidden; /* Keeps the floating items from creating scrollbars */
 }
 
-.bubble-font { font-family: 'DynaPuff', cursive; }
+.bubble-font { 
+    font-family: 'DynaPuff', cursive; 
+}
 
-/* --- Floating Faded Background --- */
+/* --- Floating Faded Background Decor --- */
 .floating-bg {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Stays behind everything */
+    pointer-events: none; /* Mouse clicks pass through it */
 }
 
 .float-item {
     position: absolute;
-    color: rgba(255, 255, 255, 0.1); /* Faded look */
+    color: rgba(255, 255, 255, 0.1); /* Very faded/transparent look */
     font-size: 2rem;
     font-weight: bold;
     animation: floatingAround 10s infinite ease-in-out;
 }
 
-/* Scattering them across the screen */
+/* Positioning different floating words */
 .float-item:nth-child(1) { top: 10%; left: 10%; animation-duration: 12s; }
 .float-item:nth-child(2) { top: 20%; left: 80%; animation-duration: 8s; }
 .float-item:nth-child(3) { top: 70%; left: 15%; animation-duration: 15s; }
@@ -38,7 +44,7 @@ body {
     50% { transform: translateY(-30px) translateX(20px); }
 }
 
-/* --- Game Layout --- */
+/* --- Game Container & Maze --- */
 #maze-container {
     position: relative;
     width: 330px;
@@ -50,7 +56,13 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-#maze-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+#maze-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 #character {
     position: absolute;
@@ -58,10 +70,23 @@ body {
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 10;
     transform: translate(-50%, -50%);
-    top: 5%; left: 5%;
+    top: 5%;
+    left: 5%;
 }
 
-/* --- New Button Styling with Hover Animations --- */
+/* --- Quiz Box --- */
+#quiz-box {
+    background: rgba(255, 255, 255, 0.1);
+    width: 85%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px); /* Glass effect */
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* --- Multiple Choice Buttons & Animations --- */
 #options-container {
     display: flex;
     justify-content: center;
@@ -75,27 +100,50 @@ button {
     color: #173796;
     border: none;
     padding: 12px 40px;
-    border-radius: 50px; /* Rounded pill look */
+    border-radius: 50px;
     font-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease; /* Smooth transition */
+    transition: all 0.3s ease; /* Smooth hover transition */
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
 }
 
-/* Hover Effect */
+/* Hover State: Changes color and floats up */
 button:hover {
-    transform: translateY(-5px) scale(1.05); /* Moves up and gets bigger */
-    background: #ffd700; /* Changes to gold on hover */
+    transform: translateY(-5px) scale(1.05);
+    background: #ffd700; /* Changes to gold/yellow */
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
-/* Active/Click Effect */
+/* Click State: Presses down */
 button:active {
     transform: translateY(0) scale(0.95);
 }
 
-/* --- Win/Lose screens --- */
+/* --- Screen Transitions (Win/Lose) --- */
+.hidden { 
+    display: none !important; 
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.bg-red { 
+    background: #b22222 !important; 
+}
+
 .big-win {
     font-size: 4.5rem !important;
     text-shadow: 0 0 30px gold;
@@ -107,30 +155,43 @@ button:active {
     to { transform: scale(1.1); }
 }
 
+/* --- Massive Flying Emojis Logic --- */
 .firework, .heartbreak {
     position: fixed; 
-    font-size: 60px;
+    font-size: 50px;
     bottom: -100px;
-    animation: flyUp 4s linear infinite;
     z-index: 1;
+    pointer-events: none;
+    display: none; /* Hidden by default */
 }
+
+/* Only show and animate when their screen is NOT hidden */
+#win-screen:not(.hidden) .firework,
+#lose-screen:not(.hidden) .heartbreak {
+    display: block;
+    animation: flyUp 3s linear infinite;
+}
+
+/* Randomized delays and positions for the emojis */
+.firework:nth-child(1), .heartbreak:nth-child(1) { left: 5%; animation-delay: 0s; }
+.firework:nth-child(2), .heartbreak:nth-child(2) { left: 15%; animation-delay: 1.2s; animation-duration: 4s; }
+.firework:nth-child(3), .heartbreak:nth-child(3) { left: 25%; animation-delay: 0.5s; }
+.firework:nth-child(4), .heartbreak:nth-child(4) { left: 40%; animation-delay: 2s; animation-duration: 5s; }
+.firework:nth-child(5), .heartbreak:nth-child(5) { left: 55%; animation-delay: 0.8s; }
+.firework:nth-child(6), .heartbreak:nth-child(6) { left: 70%; animation-delay: 1.5s; animation-duration: 3.5s; }
+.firework:nth-child(7), .heartbreak:nth-child(7) { left: 80%; animation-delay: 0.2s; }
+.firework:nth-child(8), .heartbreak:nth-child(8) { left: 90%; animation-delay: 2.5s; }
+.firework:nth-child(9), .heartbreak:nth-child(9) { left: 33%; animation-delay: 1s; animation-duration: 4.5s; }
 
 @keyframes flyUp {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
-#quiz-box {
-    background: rgba(255, 255, 255, 0.1);
-    width: 85%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 25px;
-    border-radius: 20px;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.2);
+/* --- Credits Styling --- */
+.credits { 
+    margin-top: 30px; 
+    font-size: 1.3rem; 
+    font-weight: bold; 
+    line-height: 1.5; 
 }
-
-.hidden { display: none !important; }
-.fullscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
-.bg-red { background: #b22222 !important; }
