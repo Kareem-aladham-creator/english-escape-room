@@ -28,19 +28,10 @@ const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:
 function loadQuestion() {
     if (currentQ < questions.length) {
         const qData = questions[currentQ];
-        const quizBox = document.getElementById("quiz-box");
-
-        // Force Animation Restart
-        quizBox.classList.remove("animate-q");
-        void quizBox.offsetWidth; 
-        quizBox.classList.add("animate-q");
-
         document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
         document.getElementById("question-text").innerText = qData.q;
-        
         const container = document.getElementById("options-container");
         container.innerHTML = "";
-        
         qData.options.forEach(opt => {
             const btn = document.createElement("button");
             btn.innerText = opt;
