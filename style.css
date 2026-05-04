@@ -9,126 +9,87 @@ body {
 
 .bubble-font { font-family: 'DynaPuff', cursive; }
 
-/* --- THE EXTREME FLOATING ANIMATION --- */
-@keyframes floatCrazy {
-    0% { transform: translateY(0px) rotate(0deg) scale(1); }
-    25% { transform: translateY(-15px) rotate(3deg) scale(1.05); }
-    50% { transform: translateY(0px) rotate(0deg) scale(1); }
-    75% { transform: translateY(15px) rotate(-3deg) scale(0.95); }
-    100% { transform: translateY(0px) rotate(0deg) scale(1); }
+/* --- FLOATING WORDS --- */
+@keyframes floatText {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
 }
 
 .floating-words {
-    animation: floatCrazy 3s ease-in-out infinite;
-    text-shadow: 0px 8px 20px rgba(0,0,0,0.5);
+    display: inline-block;
+    animation: floatText 3s ease-in-out infinite;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Make titles even crazier */
-.crazy-float {
-    animation: floatCrazy 2s ease-in-out infinite !important;
-}
-
-/* --- QUESTION POP ANIMATION --- */
-@keyframes popIn {
-    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.animate-q { animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-
-#maze-container {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    background: #0047ff; 
-    border: 4px solid white;
-    border-radius: 20px;
-    margin: 15px auto;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
-}
-
-#character {
-    position: absolute;
-    font-size: 26px; 
-    transition: all 0.5s ease;
-    top: 5%; left: 5%;
-    transform: translate(-50%, -50%);
-}
-
-#quiz-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    width: 85%;
-    max-width: 600px;
-    margin: 15px auto;
-    padding: 25px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-#options-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-/* --- MODERN BUTTONS --- */
-button {
-    background: linear-gradient(135deg, #ffffff, #e6e6e6);
-    color: #173796;
-    border: none;
-    padding: 15px 45px;
-    border-radius: 14px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    cursor: pointer;
-    min-width: 180px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease 0s;
-}
-
-button:hover {
-    background: linear-gradient(135deg, #ffd700, #ffb300);
-    color: #000;
-    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.6);
-    transform: translateY(-5px) scale(1.05);
-}
-
-button:active {
-    transform: translateY(2px);
-}
-
-/* --- THE MASSIVE FLYING ANIMATION FIX --- */
+/* --- THE FLYING EXPLOSION --- */
 .firework, .heartbreak {
     position: fixed;
-    display: none;
-    font-size: 50px; /* Big emojis */
+    display: none; /* Hidden by default */
+    font-size: 55px;
     bottom: -100px;
-    z-index: 100;
-    opacity: 0.9;
+    z-index: 1000;
+    pointer-events: none;
 }
 
 #win-screen:not(.hidden) .firework,
 #lose-screen:not(.hidden) .heartbreak {
     display: block;
-    /* Uses the inline speeds set in HTML */
-    animation-name: flyUpSpin;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    animation: flyAndSpin linear infinite;
 }
 
-@keyframes flyUpSpin {
+@keyframes flyAndSpin {
     0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
-    10% { opacity: 1; scale: 1.2; }
-    50% { transform: translateY(-60vh) rotate(180deg) scale(1); }
-    90% { opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg) scale(0.8); opacity: 0; }
+    15% { opacity: 1; scale: 1.2; }
+    100% { transform: translateY(-125vh) rotate(720deg) scale(1); opacity: 0; }
 }
 
-/* --- UTILITIES --- */
+/* --- MAZE & BOX --- */
+#maze-container {
+    position: relative;
+    width: 320px; height: 320px;
+    background: #0047ff; 
+    border: 4px solid white;
+    border-radius: 20px;
+    margin: 15px auto;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+#character {
+    position: absolute; font-size: 28px; 
+    transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    top: 5%; left: 5%; transform: translate(-50%, -50%);
+}
+
+#quiz-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    width: 85%; max-width: 600px;
+    margin: 15px auto; padding: 25px;
+    border-radius: 20px; border: 1px solid rgba(255,255,255,0.3);
+}
+
+#options-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+
+/* --- MODERN BUTTONS --- */
+button {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    color: #173796; border: none;
+    padding: 16px 50px; border-radius: 15px;
+    font-weight: 800; font-size: 1.2rem;
+    cursor: pointer; min-width: 200px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+    color: #000; transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(255, 215, 0, 0.4);
+}
+
+/* --- SCREEN LOGIC --- */
 .hidden { display: none !important; }
-.fullscreen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; background: #173796; }
+.fullscreen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 5000; background: #173796; }
 .bg-red { background: #b22222 !important; }
-.big-win { font-size: 5rem; margin-bottom: 20px; }
-.credits { margin-top: 30px; line-height: 0.8; font-size: 1.2rem; opacity: 0.9; }
+.big-win { font-size: 5rem; margin-bottom: 10px; }
+.credits { margin-top: 40px; line-height: 0.6; opacity: 0.8; }
