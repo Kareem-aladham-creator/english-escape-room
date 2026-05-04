@@ -47,11 +47,13 @@ body {
 
 #character {
     position: absolute;
-    font-size: 15px; /* Shrunk size */
+    font-size: 15px; 
     transition: all 0.3s ease-out;
     z-index: 10;
+    /* ADD THESE TWO LINES */
+    transform: translate(-50%, -50%); 
+    display: flex; align-items: center; justify-content: center;
 }
-
 #quiz-box {
     background: rgba(255, 255, 255, 0.15);
     width: 90%;
