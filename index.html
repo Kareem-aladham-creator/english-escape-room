@@ -8,49 +8,49 @@
 </head>
 <body>
     <!-- Balanced Floating Words -->
-    <div class="floating-bg">
-        <div class="column-left">
-            <span class="f-word c1">Grammar</span>
-            <span class="f-word c2">ABC</span>
-            <span class="f-word c3">Tense</span>
+    <div class="floating-container">
+        <div class="float-column float-left">
+            <span class="f-word w1">Grammar</span>
+            <span class="f-word w2">ABC</span>
+            <span class="f-word w3">Tense</span>
         </div>
-        <div class="column-right">
-            <span class="f-word c4">Verb</span>
-            <span class="f-word c5">Noun</span>
-            <span class="f-word c6">Phrase</span>
+        <div class="float-column float-right">
+            <span class="f-word w4">Verb</span>
+            <span class="f-word w5">Noun</span>
+            <span class="f-word w6">Phrase</span>
         </div>
     </div>
 
-    <div id="main-game">
+    <div id="game-wrapper">
         <h1 class="project-title">English Escape Room</h1>
         
         <div id="maze-container">
-            <div id="player">🏃‍♂️</div>
+            <div id="runner">🏃‍♂️</div>
         </div>
 
-        <div id="question-box">
-            <h2 id="riddle-id">Riddle 1</h2>
+        <div id="riddle-box">
+            <h2 id="riddle-number">Riddle 1</h2>
             <p id="riddle-text">Loading...</p>
-            <div id="answers"></div>
+            <div id="options-group"></div>
         </div>
     </div>
 
-    <!-- Win Screen: 🏆 ONLY -->
+    <!-- Win Screen (Fixed: No Heartbreak) -->
     <div id="victory-panel" class="overlay hidden">
         <h1>Victory! 🏆</h1>
-        <p>You escaped with 20/20!</p>
-        <div class="credits">
+        <p>You mastered all 20 riddles!</p>
+        <div class="project-credits">
             <p>Made by Kareem Aladham</p>
-            <p>Teacher Hiba Hilal - Class 8A</p>
+            <p>Class 8A - Teacher Hiba Hilal</p>
         </div>
-        <button onclick="location.reload()">Play Again</button>
+        <button class="menu-btn" onclick="location.reload()">Play Again</button>
     </div>
 
-    <!-- Lose Screen: 💔 ONLY -->
-    <div id="fail-panel" class="overlay hidden">
+    <!-- Lose Screen (💔 ONLY) -->
+    <div id="lose-panel" class="overlay hidden">
         <h1>Hard Luck 💔</h1>
-        <p>One mistake and the door locked!</p>
-        <button onclick="location.reload()">Try Again</button>
+        <p>One wrong move door locked!</p>
+        <button class="menu-btn" onclick="location.reload()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
