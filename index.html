@@ -2,66 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Escape Room</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@600&display=swap" rel="stylesheet">
 </head>
-<body id="game-body">
+<body>
+    <!-- Floating Background Words -->
+    <div class="floating-container">
+        <span class="f-word left w1">Grammar</span>
+        <span class="f-word left w2">ABC</span>
+        <span class="f-word left w3">Tense</span>
+        <span class="f-word right w4">Verb</span>
+        <span class="f-word right w5">Noun</span>
+        <span class="f-word right w6">Phrase</span>
+    </div>
 
-    <div id="game-container">
-        <div class="bg-word" style="top: 10%; left: 5%;">Grammar</div>
-        <div class="bg-word" style="top: 20%; right: 10%;">Verb</div>
-        <div class="bg-word" style="top: 50%; left: 8%;">ABC</div>
-        <div class="bg-word" style="bottom: 15%; right: 5%;">Noun</div>
-        <div class="bg-word" style="bottom: 10%; left: 15%;">Tense</div>
-
-        <h1 class="bubble-font floating-words">English Escape Room</h1>
+    <div id="game-wrapper">
+        <h1 class="game-title">English Escape Room</h1>
         
+        <!-- Maze Area -->
         <div id="maze-container">
-            <svg id="maze-svg" viewBox="0 0 100 100">
-                <path d="M 5 5 L 5 40 L 40 40 L 40 70 L 80 70 L 80 95" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" />
-            </svg>
-            <div id="character">🏃‍♂️</div>
+            <div id="runner">🏃‍♂️</div>
         </div>
 
-        <div id="quiz-box">
-            <h2 id="riddle-title" class="bubble-font floating-words">Riddle 1</h2>
-            <p id="question-text">Loading...</p>
+        <!-- Question Area -->
+        <div id="riddle-box">
+            <h2 id="riddle-number">Riddle 1</h2>
+            <p id="riddle-text">Loading riddle...</p>
             <div id="options-container"></div>
         </div>
     </div>
 
-    <!-- WIN SCREEN: ONLY HEARTBREAKS -->
-    <div id="win-screen" class="hidden fullscreen">
-        <div class="heartbreak" style="left: 5%;">💔</div>
-        <div class="heartbreak" style="left: 20%;">💔</div>
-        <div class="heartbreak" style="left: 35%;">💔</div>
-        <div class="heartbreak" style="left: 50%;">💔</div>
-        <div class="heartbreak" style="left: 65%;">💔</div>
-        <div class="heartbreak" style="left: 80%;">💔</div>
-        <div class="heartbreak" style="left: 95%;">💔</div>
-        
-        <h1 class="big-win bubble-font floating-words">Winner 🎉🥇</h1>
-        <button class="modern-btn" onclick="resetGame()">Play Again</button>
-        <div class="credits">
-            <p>Made by Kareem Aladham</p>
-            <p>Teacher Hiba Hilal</p>
-            <p>8A</p>
-        </div>
+    <!-- Win Screen (Fixed: No Heartbreak) -->
+    <div id="win-screen" class="hidden">
+        <h1>Victory! 🏆</h1>
+        <p>You mastered all 20 riddles!</p>
+        <p>Developer: Kareem Aladham (8A)<br>Teacher: Hiba Hilal</p>
+        <button onclick="location.reload()">Play Again</button>
     </div>
 
-    <!-- LOSE SCREEN: ONLY HEARTBREAKS -->
-    <div id="lose-screen" class="hidden fullscreen bg-red">
-        <div class="heartbreak" style="left: 5%;">💔</div>
-        <div class="heartbreak" style="left: 20%;">💔</div>
-        <div class="heartbreak" style="left: 40%;">💔</div>
-        <div class="heartbreak" style="left: 60%;">💔</div>
-        <div class="heartbreak" style="left: 80%;">💔</div>
-        <div class="heartbreak" style="left: 95%;">💔</div>
-
-        <h1 class="bubble-font floating-words">Hard Luck 💔</h1>
-        <button class="modern-btn" onclick="resetGame()">Try Again</button>
+    <!-- Lose Screen -->
+    <div id="lose-screen" class="hidden">
+        <h1>Hard Luck! 💔</h1>
+        <p>One wrong move ended the escape.</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
