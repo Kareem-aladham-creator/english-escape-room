@@ -1,6 +1,9 @@
-const questions = [
+const riddles = [
     { q: "You expect one thing, but the opposite occurs. A fire station burning? That's me, for sure.", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
-    { q: "I am not 'your,' though we sound just the same. I mean 'you are'—what is my name?", options: ["Your", "You're"], a: "You're" },
+    { q: "I mean 'belonging to it,' without a tick. If you add an apostrophe, you've missed the trick!", options: ["Its", "It's"], a: "Its" }, // Riddle 20
+    { q: "I am the past of 'eat,' a meal that is through. I rhyme with 'gate'—what am I to you?", options: ["Ate", "Eaten"], a: "Ate" }, // Riddle 21
+    { q: "I am a specific place, like London or Rome. I need a capital letter to feel at home.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" }, // Riddle 22
+    { q: "Plural of 'child'?", options: ["Childs", "Children"], a: "Children" }, // Riddle 24
     { q: "I lead the sentence as the subject of the play. I am the 'captain'—what do you say?", options: ["Who", "Whom"], a: "Who" },
     { q: "I make the wind whisper and the trees start to dance. I give human life to things at a glance.", options: ["Hyperbole", "Personification"], a: "Personification" },
     { q: "I am the time of day and the place on the map. I hold the story's world right in my lap.", options: ["Conflict", "Setting"], a: "Setting" },
@@ -9,41 +12,53 @@ const questions = [
     { q: "When Sarah or Chloe speaks, they use me alone. I’m the singular pronoun they claim as their own.", options: ["Her", "Their"], a: "Her" },
     { q: "When 'and' joins two nouns, we become a team. Which pronoun type fits this pluralized dream?", options: ["Singular", "Plural"], a: "Plural" },
     { q: "I belong to one student, an essay so fine. Where does my apostrophe mark the line?", options: ["Student's", "Students'"], a: "Student's" },
+    { q: "I am not 'your,' though we sound just the same. I mean 'you are'—what is my name?", options: ["Your", "You're"], a: "You're" },
     { q: "I am a negative word, quiet and rare. I mean 'almost not,' like a ghost in the air.", options: ["Scarcely", "Quickly"], a: "Scarcely" },
     { q: "Identify the double negative: 'We didn't see nobody.'", options: ["didn't and nobody", "We and nobody"], a: "didn't and nobody" },
-    { q: "I am a specific place, like London or Rome. I need a capital letter to feel at home.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
-    { q: "I am the past of 'eat,' a meal that is through. I rhyme with 'gate'—what am I to you?", options: ["Ate", "Eaten"], a: "Ate" },
-    { q: "One of me is a 'child,' but more is a crowd. We rhyme with 'men'—say it out loud!", options: ["Childs", "Children"], a: "Children" },
     { q: "I join words together, like 'but' or 'and.' I am the bridge that helps the sentence stand.", options: ["Conjunction", "Adjective"], a: "Conjunction" },
     { q: "I am a word like 'beautiful' or 'fast.' I describe the noun until the very last.", options: ["Adjective", "Verb"], a: "Adjective" },
-    { q: "I mean 'belonging to it,' without a tick. If you add an apostrophe, you've missed the trick!", options: ["Its", "It's"], a: "Its" },
     { q: "I am a bridge between ideas, starting with 'wh-'. I relate the noun to the rest of the crew.", options: ["Relative Pronoun", "Verb"], a: "Relative Pronoun" },
     { q: "I am a feeling expressed in a word. 'Wow!' or 'Ouch!' are the sounds often heard.", options: ["Interjection", "Noun"], a: "Interjection" }
 ];
 
-let score = 0;
-let currentQ = 0;
+let currentRiddle = 0;
 
-function checkAnswer(selected) {
-    if (selected === questions[currentQ].a) {
-        score++;
-        currentQ++;
-        
-        // WIN BUG FIX: Checks if score is 20
-        if (score >= 20) {
-            showWinScreen();
+function loadQuestion() {
+    const r = riddles[currentRiddle];
+    document.getElementById("riddle-number").innerText = `Riddle ${currentRiddle + 1}`;
+    document.getElementById("riddle-text").innerText = r.q;
+    const container = document.getElementById("options-container");
+    container.innerHTML = "";
+    
+    r.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(opt);
+        container.appendChild(btn);
+    });
+}
+
+function checkAnswer(choice) {
+    if (choice === riddles[currentRiddle].a) {
+        currentRiddle++;
+        if (currentRiddle === 20) {
+            showWin();
         } else {
             loadQuestion();
         }
     } else {
-        showLoseScreen();
+        showLose();
     }
 }
 
-function showWinScreen() {
-    document.getElementById("game-container").classList.add("hidden");
-    const winScreen = document.getElementById("win-screen");
-    winScreen.classList.remove("hidden");
-    // Ensure only the trophy is here
-    winScreen.innerHTML = "<h1>You Win! 🏆</h1><button onclick='resetGame()'>Play Again</button>";
+function showWin() {
+    document.getElementById("game-wrapper").classList.add("hidden");
+    document.getElementById("win-screen").classList.remove("hidden");
 }
+
+function showLose() {
+    document.getElementById("game-wrapper").classList.add("hidden");
+    document.getElementById("lose-screen").classList.remove("hidden");
+}
+
+loadQuestion();
