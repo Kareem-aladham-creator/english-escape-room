@@ -1,111 +1,90 @@
-/* Import DynaPuff Font */
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 
 :root {
-    --main-blue: #173796;
-    --accent-cyan: #00f2ff;
-    --glass-white: rgba(255, 255, 255, 0.1);
+    --bg-blue: #173796;
+    --cyan-glow: #00f2ff;
+    --text-faded: rgba(255, 255, 255, 0.2);
 }
 
 body {
-    background-color: var(--main-blue);
+    background-color: var(--bg-blue);
     color: white;
     font-family: 'DynaPuff', cursive;
     margin: 0;
-    overflow: hidden; /* Keeps floating words contained */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    overflow: hidden;
 }
 
-/* --- Floating Background Words --- */
-.floating-container {
+/* Balanced Floating Words */
+.background-elements {
     position: fixed;
     width: 100%;
     height: 100%;
     z-index: -1;
-    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
 }
 
-.f-word {
-    position: absolute;
-    font-family: 'DynaPuff', cursive;
-    opacity: 0.15; /* Faded effect */
-    transition: color 2s ease;
+.float-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
 }
 
-/* Balanced Placement */
-.left { left: 8%; }
-.right { right: 8%; }
-
-/* Unique animations to keep them balanced but moving */
-.w1 { top: 15%; color: var(--accent-cyan); animation: floatLeft 7s infinite ease-in-out; }
-.w2 { top: 45%; color: #ffffff; animation: floatLeft 9s infinite ease-in-out; animation-delay: 1s; }
-.w3 { top: 75%; color: var(--accent-cyan); animation: floatLeft 8s infinite ease-in-out; animation-delay: 2s; }
-
-.w4 { top: 20%; color: #ffffff; animation: floatRight 8s infinite ease-in-out; }
-.w5 { top: 50%; color: var(--accent-cyan); animation: floatRight 10s infinite ease-in-out; animation-delay: 1.5s; }
-.w6 { top: 80%; color: #ffffff; animation: floatRight 7s infinite ease-in-out; animation-delay: 0.5s; }
-
-@keyframes floatLeft {
-    0%, 100% { transform: translate(0, 0) rotate(-2deg); }
-    50% { transform: translate(15px, -25px) rotate(2deg); }
+.word {
+    font-size: 1.8rem;
+    opacity: 0.15;
+    animation: floatMove 6s ease-in-out infinite;
 }
 
-@keyframes floatRight {
-    0%, 100% { transform: translate(0, 0) rotate(2deg); }
-    50% { transform: translate(-15px, -25px) rotate(-2deg); }
+.left-side .word { color: var(--cyan-glow); }
+.right-side .word { color: #ffffff; }
+
+@keyframes floatMove {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-30px) rotate(2deg); }
 }
 
-/* --- Modern Riddle Box --- */
-#riddle-box {
-    background: var(--glass-white);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 40px;
-    border-radius: 30px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    max-width: 500px;
-    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes popIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* --- Modern Cyan Buttons (No Yellow) --- */
-button {
-    background: linear-gradient(135deg, var(--accent-cyan), #00a2ff);
-    color: #173796;
+/* Modern Glow Buttons */
+#btn-group button {
+    background: linear-gradient(135deg, var(--cyan-glow), #0077ff);
+    color: var(--bg-blue);
     border: none;
     padding: 15px 35px;
     margin: 10px;
-    border-radius: 15px;
+    border-radius: 12px;
     font-family: 'DynaPuff', cursive;
-    font-size: 1.2rem;
     font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-button:hover {
+#btn-group button:hover {
     background: #ffffff;
-    color: var(--main-blue);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 25px var(--accent-cyan);
+    color: var(--bg-blue);
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 0 20px var(--cyan-glow);
 }
 
-/* --- Win/Lose Screen Fixes --- */
+/* Screens */
 .hidden { display: none !important; }
+.screen { text-align: center; animation: fadeIn 0.8s ease; }
 
-#win-screen h1 { color: var(--accent-cyan); text-shadow: 0 0 15px var(--accent-cyan); }
-#lose-screen h1 { color: #ff4b4b; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
 
-.credits {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    opacity: 0.8;
+#quiz-area {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
