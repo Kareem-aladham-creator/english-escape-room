@@ -1,8 +1,8 @@
 const riddles = [
-    { q: "You expect one thing, but the opposite occurs. A fire station burning? That's me, for sure.", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
-    { q: "I mean 'belonging to it,' without a tick. If you add an apostrophe, you've missed the trick!", options: ["Its", "It's"], a: "Its" },
-    { q: "I am the past of 'eat,' a meal that is through. I rhyme with 'gate'—what am I to you?", options: ["Ate", "Eaten"], a: "Ate" },
-    { q: "I am a specific place, like London or Rome. I need a capital letter to feel at home.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
+    { q: "You expect one thing, but the opposite occurs. A fire station burning? That's me.", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
+    { q: "I mean 'belonging to it,' without a tick.", options: ["Its", "It's"], a: "Its" },
+    { q: "I am the past of 'eat,' a meal that is through.", options: ["Ate", "Eaten"], a: "Ate" },
+    { q: "I am a specific place, like London or Rome.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
     { q: "Plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
     { q: "I lead the sentence as the subject. I am the 'captain'.", options: ["Who", "Whom"], a: "Who" },
     { q: "I give human traits to non-human things.", options: ["Hyperbole", "Personification"], a: "Personification" },
@@ -21,14 +21,14 @@ const riddles = [
     { q: "I express strong feelings like 'Wow!'.", options: ["Interjection", "Noun"], a: "Interjection" }
 ];
 
-let score = 0;
+let progress = 0;
 
-function startRiddle() {
-    const r = riddles[score];
-    document.getElementById("riddle-count").innerText = `Riddle ${score + 1}`;
-    document.getElementById("riddle-text").innerText = r.q;
+function runGame() {
+    const r = riddles[progress];
+    document.getElementById("riddle-header").innerText = `Riddle ${progress + 1}`;
+    document.getElementById("riddle-prompt").innerText = r.q;
     
-    const container = document.getElementById("option-buttons");
+    const container = document.getElementById("btn-container");
     container.innerHTML = "";
     
     r.options.forEach(opt => {
@@ -36,20 +36,20 @@ function startRiddle() {
         btn.innerText = opt;
         btn.onclick = () => {
             if (opt === r.a) {
-                score++;
-                if (score === 20) {
-                    document.getElementById("game-container").classList.add("hidden");
-                    document.getElementById("win-screen").classList.remove("hidden");
+                progress++;
+                if (progress === 20) {
+                    document.getElementById("game-ui").classList.add("hidden");
+                    document.getElementById("win-panel").classList.remove("hidden");
                 } else {
-                    startRiddle();
+                    runGame();
                 }
             } else {
-                document.getElementById("game-container").classList.add("hidden");
-                document.getElementById("lose-screen").classList.remove("hidden");
+                document.getElementById("game-ui").classList.add("hidden");
+                document.getElementById("lose-panel").classList.remove("hidden");
             }
         };
         container.appendChild(btn);
     });
 }
 
-startRiddle();
+runGame();
