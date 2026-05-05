@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 
 :root {
-    --deep-blue: #173796;
-    --cyan: #00f2ff;
+    --bg: #173796;
+    --neon: #00f2ff;
 }
 
 body {
-    background-color: var(--deep-blue);
-    color: white;
+    background-color: var(--bg);
+    color: #fff;
     font-family: 'DynaPuff', cursive;
     margin: 0;
     height: 100vh;
@@ -17,58 +17,57 @@ body {
     overflow: hidden;
 }
 
-.fx-layer {
+.side-deco {
     position: fixed;
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 12vw;
+    padding: 0 10%;
     z-index: -1;
-    opacity: 0.2;
 }
 
-.f-item {
+.txt {
     display: block;
-    font-size: 2rem;
-    margin: 18vh 0;
-    color: var(--cyan);
-    animation: bounce 6s ease-in-out infinite;
+    font-size: 2.5rem;
+    color: var(--neon);
+    opacity: 0.1;
+    margin: 15vh 0;
+    animation: wave 4s ease-in-out infinite;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-30px) rotate(2deg); }
+@keyframes wave {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.1); opacity: 0.3; }
 }
 
-#quiz-box {
-    background: rgba(255, 255, 255, 0.1);
+#riddle-display {
+    background: rgba(255, 255, 255, 0.05);
     padding: 50px;
     border-radius: 40px;
-    backdrop-filter: blur(12px);
-    border: 2px solid rgba(0, 242, 255, 0.3);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--neon);
     text-align: center;
-    max-width: 500px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
 }
 
-#opt-btns button {
-    background: linear-gradient(135deg, var(--cyan), #0077ff);
-    color: var(--deep-blue);
+#button-grid button {
+    background: linear-gradient(to bottom right, var(--neon), #0072ff);
+    color: var(--bg);
     border: none;
-    padding: 18px 35px;
+    padding: 20px 40px;
     margin: 10px;
-    border-radius: 18px;
+    border-radius: 20px;
     font-family: 'DynaPuff', cursive;
-    font-weight: 700;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.2s;
 }
 
-#opt-btns button:hover {
-    background: #ffffff;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px var(--cyan);
+#button-grid button:hover {
+    background: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--neon);
 }
 
-.hidden { display: none !important; }
-.retry { background: white !important; color: var(--deep-blue) !important; margin-top: 25px; }
+.ui-hidden { display: none !important; }
+.sys-btn { background: #fff !important; color: var(--bg) !important; margin-top: 30px; }
