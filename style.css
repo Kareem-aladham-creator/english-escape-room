@@ -2,7 +2,7 @@
 
 :root {
     --deep-blue: #173796;
-    --cyan-glow: #00f2ff;
+    --cyan: #00f2ff;
 }
 
 body {
@@ -17,62 +17,58 @@ body {
     overflow: hidden;
 }
 
-/* Perfect Balance for Floating Words */
-.bg-layer {
+.fx-layer {
     position: fixed;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 10vw;
+    padding: 0 12vw;
     z-index: -1;
+    opacity: 0.2;
 }
 
-.f-word {
+.f-item {
     display: block;
-    font-size: 1.8rem;
-    opacity: 0.15;
-    margin: 15vh 0;
-    animation: floatAnim 6s ease-in-out infinite;
+    font-size: 2rem;
+    margin: 18vh 0;
+    color: var(--cyan);
+    animation: bounce 6s ease-in-out infinite;
 }
 
-.col-left .f-word { color: var(--cyan-glow); text-align: left; }
-.col-right .f-word { color: #ffffff; text-align: right; }
-
-@keyframes floatAnim {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-35px) rotate(3deg); }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-30px) rotate(2deg); }
 }
 
-/* Modern Cyan Glow Buttons */
-#btn-container button {
-    background: linear-gradient(135deg, var(--cyan-glow), #0077ff);
+#quiz-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 50px;
+    border-radius: 40px;
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(0, 242, 255, 0.3);
+    text-align: center;
+    max-width: 500px;
+}
+
+#opt-btns button {
+    background: linear-gradient(135deg, var(--cyan), #0077ff);
     color: var(--deep-blue);
     border: none;
-    padding: 18px 40px;
-    margin: 12px;
-    border-radius: 15px;
+    padding: 18px 35px;
+    margin: 10px;
+    border-radius: 18px;
     font-family: 'DynaPuff', cursive;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#btn-container button:hover {
+#opt-btns button:hover {
     background: #ffffff;
-    transform: scale(1.1) translateY(-5px);
-    box-shadow: 0 0 25px var(--cyan-glow);
-}
-
-#quiz-container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    border-radius: 30px;
-    backdrop-filter: blur(10px);
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--cyan);
 }
 
 .hidden { display: none !important; }
-.modal h1 { margin-bottom: 10px; }
-.retry-btn { background: white !important; color: var(--deep-blue) !important; margin-top: 20px; }
+.retry { background: white !important; color: var(--deep-blue) !important; margin-top: 25px; }
