@@ -2,48 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Escape Room</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating Background Words -->
-    <div class="floating-container">
-    <span class="f-word left w1">Grammar</span>
-    <span class="f-word left w2">ABC</span>
-    <span class="f-word left w3">Tense</span>
-    <span class="f-word right w4">Verb</span>
-    <span class="f-word right w5">Noun</span>
-    <span class="f-word right w6">Phrase</span>
-</div>
-    <div id="game-wrapper">
-        <h1 class="game-title">English Escape Room</h1>
+    <!-- Balanced Floating Words -->
+    <div class="background-elements">
+        <div class="float-side left-side">
+            <span class="word w1">Grammar</span>
+            <span class="word w2">ABC</span>
+            <span class="word w3">Tense</span>
+        </div>
+        <div class="float-side right-side">
+            <span class="word w4">Verb</span>
+            <span class="word w5">Noun</span>
+            <span class="word w6">Phrase</span>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <h1 class="main-title">English Escape Room</h1>
         
-        <!-- Maze Area -->
-        <div id="maze-container">
+        <div id="maze-box">
             <div id="runner">🏃‍♂️</div>
         </div>
 
-        <!-- Question Area -->
-        <div id="riddle-box">
-            <h2 id="riddle-number">Riddle 1</h2>
-            <p id="riddle-text">Loading riddle...</p>
-            <div id="options-container"></div>
+        <div id="quiz-area">
+            <h2 id="riddle-header">Riddle 1</h2>
+            <p id="question-text">Loading...</p>
+            <div id="btn-group"></div>
         </div>
     </div>
 
-    <!-- Win Screen (Fixed: No Heartbreak) -->
-    <div id="win-screen" class="hidden">
-        <h1>Victory! 🏆</h1>
-        <p>You mastered all 20 riddles!</p>
-        <p>Developer: Kareem Aladham (8A)<br>Teacher: Hiba Hilal</p>
-        <button onclick="location.reload()">Play Again</button>
+    <!-- Win Screen: 🏆 ONLY -->
+    <div id="win-screen" class="screen hidden">
+        <h1 class="victory-text">Victory! 🏆</h1>
+        <p>You mastered 20 riddles!</p>
+        <div class="credits">
+            <p>Made by Kareem Aladham</p>
+            <p>Teacher Hiba Hilal - 8A</p>
+        </div>
+        <button class="retry-btn" onclick="location.reload()">Play Again</button>
     </div>
 
-    <!-- Lose Screen -->
-    <div id="lose-screen" class="hidden">
-        <h1>Hard Luck! 💔</h1>
-        <p>One wrong move ended the escape.</p>
-        <button onclick="location.reload()">Try Again</button>
+    <!-- Lose Screen: 💔 ONLY -->
+    <div id="lose-screen" class="screen hidden">
+        <h1 class="fail-text">Hard Luck 💔</h1>
+        <p>One mistake ended the escape!</p>
+        <button class="retry-btn" onclick="location.reload()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
