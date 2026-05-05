@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 
 :root {
-    --bg-dark: #173796;
-    --neon-blue: #00f2ff;
+    --deep-blue: #173796;
+    --cyan-glow: #00f2ff;
 }
 
 body {
-    background-color: var(--bg-dark);
+    background-color: var(--deep-blue);
     color: white;
     font-family: 'DynaPuff', cursive;
     margin: 0;
@@ -17,63 +17,62 @@ body {
     overflow: hidden;
 }
 
-/* Balanced Floating Words */
-.floating-container {
+/* Perfect Balance for Floating Words */
+.bg-layer {
     position: fixed;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 8vw;
+    padding: 0 10vw;
     z-index: -1;
 }
 
 .f-word {
     display: block;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     opacity: 0.15;
     margin: 15vh 0;
-    animation: floatMove 6s ease-in-out infinite;
+    animation: floatAnim 6s ease-in-out infinite;
 }
 
-.side-left .f-word { color: var(--neon-blue); }
-.side-right .f-word { color: #ffffff; }
+.col-left .f-word { color: var(--cyan-glow); text-align: left; }
+.col-right .f-word { color: #ffffff; text-align: right; }
 
-@keyframes floatMove {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-35px) rotate(2deg); }
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-35px) rotate(3deg); }
 }
 
-/* Buttons: NO YELLOW */
-#option-buttons button {
-    background: linear-gradient(135deg, var(--neon-blue), #0077ff);
-    color: var(--bg-dark);
+/* Modern Cyan Glow Buttons */
+#btn-container button {
+    background: linear-gradient(135deg, var(--cyan-glow), #0077ff);
+    color: var(--deep-blue);
     border: none;
     padding: 18px 40px;
-    margin: 10px;
+    margin: 12px;
     border-radius: 15px;
     font-family: 'DynaPuff', cursive;
-    font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-#option-buttons button:hover {
+#btn-container button:hover {
     background: #ffffff;
     transform: scale(1.1) translateY(-5px);
-    box-shadow: 0 0 20px var(--neon-blue);
+    box-shadow: 0 0 25px var(--cyan-glow);
 }
 
-#quiz-box {
+#quiz-container {
     background: rgba(255, 255, 255, 0.1);
     padding: 40px;
-    border-radius: 25px;
+    border-radius: 30px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hidden { display: none !important; }
-.end-screen { text-align: center; }
-.reset-btn { background: white !important; color: var(--bg-dark) !important; margin-top: 20px; }
+.modal h1 { margin-bottom: 10px; }
+.retry-btn { background: white !important; color: var(--deep-blue) !important; margin-top: 20px; }
