@@ -1,53 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 
 body {
-    background-color: #173796;
+    background-color: #173796; /* Deep Blue Theme */
     color: white;
     font-family: 'DynaPuff', cursive;
     margin: 0;
-    overflow: hidden; /* Keeps floating words inside */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Floating Words Styling */
-.floating-word {
+/* Floating Words */
+.f-word {
     position: absolute;
-    font-family: 'DynaPuff', cursive;
-    opacity: 0.3; /* Faded effect */
-    animation: float 6s ease-in-out infinite;
+    font-size: 1.5rem;
+    opacity: 0.2; /* Faded effect */
+    animation: floatAnim 8s ease-in-out infinite;
     z-index: -1;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
+.left { left: 5%; }
+.right { right: 5%; }
+
+/* Different Colors for Words */
+.w1 { color: #00d4ff; top: 10%; animation-delay: 0s; }
+.w2 { color: #ffffff; top: 40%; animation-delay: 2s; }
+.w3 { color: #00ffaa; top: 70%; animation-delay: 4s; }
+.w4 { color: #00d4ff; top: 15%; animation-delay: 1s; }
+.w5 { color: #ffffff; top: 45%; animation-delay: 3s; }
+.w6 { color: #00ffaa; top: 75%; animation-delay: 5s; }
+
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
 }
 
-/* Modern Answer Buttons */
+/* Modern Glow Buttons */
 button {
     background-color: #FFD700;
     border: none;
-    padding: 15px 30px;
+    padding: 15px 40px;
     margin: 10px;
-    border-radius: 12px;
+    border-radius: 15px;
     font-family: 'DynaPuff', cursive;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease; /* Modern transition */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 button:hover {
     background-color: #ffffff;
     color: #173796;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: scale(1.15); /* Modern pop effect */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
 }
 
-/* Question Animation */
-#riddle-container {
-    animation: fadeIn 0.8s ease-in-out;
+.hidden { display: none !important; }
+
+/* Question Transition */
+#riddle-box {
+    animation: slideIn 0.5s ease-out;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes slideIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
