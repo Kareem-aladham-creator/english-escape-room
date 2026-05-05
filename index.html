@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
 
     <style>
-        /* === THEME & LAYOUT === */
         body {
             background-color: #001122;
             color: #ffffff;
@@ -35,7 +34,6 @@
             margin-bottom: 5px;
         }
 
-        /* === MAZE BOARD === */
         .maze-board {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -65,7 +63,6 @@
             transform: scale(1.1);
         }
 
-        /* === GAME BOX === */
         #game-container, #end-screen {
             background-color: #002244;
             border: 3px solid #0055ff;
@@ -81,11 +78,10 @@
             font-size: 1.2rem;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .question-text {
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 25px;
             line-height: 1.4;
         }
@@ -103,7 +99,7 @@
             border: 3px solid #0055ff;
             border-radius: 12px;
             padding: 20px;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -111,19 +107,15 @@
         button:hover {
             background-color: #0055ff;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 85, 255, 0.4);
         }
 
-        /* === ANIMATIONS === */
         .heartbreak {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             font-size: 120px;
             transform: translate(-50%, -50%);
             animation: breakEffect 1s forwards;
             pointer-events: none;
-            z-index: 1000;
         }
         @keyframes breakEffect {
             0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -135,7 +127,6 @@
             font-size: 60px;
             animation: explodeEffect 1.5s forwards;
             pointer-events: none;
-            z-index: 1000;
         }
         @keyframes explodeEffect {
             0% { transform: scale(1); opacity: 1; }
@@ -156,14 +147,12 @@
     <div class="maze-board" id="maze-board"></div>
 
     <div id="game-container">
-        <!-- Riddle Number Display -->
         <div id="riddle-tag" class="riddle-number">Riddle 1</div>
         <div id="question-text" class="question-text">Loading...</div>
         <div id="options-container" class="options"></div>
         <div style="margin-top: 25px; color: #ff4444; font-size: 20px;">LIFE: ❤️</div>
     </div>
 
-    <!-- End Screen -->
     <div id="end-screen" style="display: none;">
         <h2 id="end-title" style="font-size: 36px;"></h2>
         <p id="end-message" style="font-size: 20px; margin-bottom: 20px;"></p>
@@ -176,32 +165,30 @@
     </div>
 
     <script>
-        // === AUDIO SETUP ===
         const correctSound = new Audio('correct.mp3');
         const wrongSound = new Audio('wrong.mp3');
 
-        // === 20 RIDDLES (2 OPTIONS EACH) ===
         const questions = [
             { q: "Which is a 'Noun'?", options: ["Run", "Apple"], answer: 1 },
             { q: "Past tense of 'Go'?", options: ["Went", "Gone"], answer: 0 },
-            { q: "I have an eye but cannot see. What am I?", options: ["Needle", "Table"], answer: 0 },
+            { q: "Who is responsible for the broken window?", options: ["Who", "Whom"], answer: 0 },
             { q: "Which one is plural?", options: ["Child", "Children"], answer: 1 },
-            { q: "Opposite of 'Difficult'?", options: ["Easy", "Soft"], answer: 0 },
-            { q: "A person who teaches is a...", options: ["Student", "Teacher"], answer: 1 },
-            { q: "What comes at the end of a sentence?", options: ["Comma", "Full stop"], answer: 1 },
-            { q: "Which is a color?", options: ["Blue", "Blow"], answer: 0 },
-            { q: "The day after Friday is...", options: ["Saturday", "Sunday"], answer: 0 },
-            { q: "Which is a fruit?", options: ["Carrot", "Orange"], answer: 1 },
-            { q: "I have keys but no locks. What am I?", options: ["Piano", "Door"], answer: 0 },
-            { q: "Capital of England?", options: ["Paris", "London"], answer: 1 },
+            { q: "Which sentence follows pronoun-antecedent agreement?", options: ["Every student must bring their own laptop.", "Every student must bring his or her own laptop."], answer: 1 },
+            { q: "Choose the correct pronoun: 'Either Sarah or Jane will lend you ___ notes.'", options: ["Their", "Her"], answer: 1 },
+            { q: "Which sentence avoids a double negative?", options: ["I don't have no time for games.", "I can hardly wait for the holidays."], answer: 1 },
+            { q: "What is the correct possessive form for a single cat that owns a toy?", options: ["The cat's toy", "The cats' toy"], answer: 0 },
+            { q: "The house lost ___ roof in the storm.", options: ["It's", "Its"], answer: 1 },
+            { q: "Complete the sentence: 'Neither of the boys brought ___ lunch.'", options: ["His", "Their"], answer: 0 },
+            { q: "Correct possessive form for 'children':", options: ["Children's", "Childrens'"], answer: 0 },
+            { q: "Many of the hikers found ___ way back.", options: ["Their", "His"], answer: 0 },
             { q: "A 'Verb' is an action word. Correct?", options: ["Yes", "No"], answer: 0 },
-            { q: "Which is 'Bigger'?", options: ["Ant", "Elephant"], answer: 1 },
-            { q: "Opposite of 'Hot'?", options: ["Cold", "Warm"], answer: 0 },
-            { q: "I speak without a mouth. What am I?", options: ["Echo", "Wind"], answer: 0 },
-            { q: "Which month has 'Christmas'?", options: ["November", "December"], answer: 1 },
-            { q: "How many letters in 'English'?", options: ["7", "8"], answer: 0 },
+            { q: "Complete this sentence: 'Is that bag ___?'", options: ["Your", "Yours"], answer: 1 },
+            { q: "How should you form the possessive of 'babies' (plural)?", options: ["Babies'", "Baby's"], answer: 0 },
+            { q: "Most of the students had ___ chance to see the document.", options: ["Their", "His"], answer: 0 },
+            { q: "Most of the students had ___ chance to see the document.", options: ["Their", "His or Her"], answer: 0 },
+            { q: "George Washington and James Madison signed the Constitution. ___ became presidents.", options: ["They", "Them"], answer: 0 },
             { q: "Which is a 'Vowel'?", options: ["B", "E"], answer: 1 },
-            { q: "You use me to write on a board. What am I?", options: ["Chalk", "Spoon"], answer: 0 }
+            { q: "Is there a double negative in: 'Nobody knows more about that glass than Dr. Franks'?", options: ["No", "Yes"], answer: 0 }
         ];
 
         let currentIdx = 0;
@@ -209,7 +196,6 @@
         const cells = [];
         const board = document.getElementById('maze-board');
 
-        // Initialize Maze
         for(let i=0; i<20; i++) {
             const cell = document.createElement('div');
             cell.classList.add('maze-cell');
@@ -234,21 +220,15 @@
                 showEndScreen(true);
                 return;
             }
-
-            // Update Maze Runner
             cells.forEach(c => { c.innerHTML = ''; c.classList.remove('active'); });
             cells[mazePath[19]].innerHTML = '🏁';
             cells[mazePath[currentIdx]].classList.add('active');
             cells[mazePath[currentIdx]].innerHTML = '🏃‍♂️';
-
-            // Update Riddle Tag
             document.getElementById('riddle-tag').innerText = `Riddle ${currentIdx + 1}`;
-
             const qData = questions[currentIdx];
             document.getElementById('question-text').innerText = qData.q;
             const btnBox = document.getElementById('options-container');
             btnBox.innerHTML = '';
-
             qData.options.forEach((text, i) => {
                 const b = document.createElement('button');
                 b.innerText = text;
@@ -260,7 +240,7 @@
         function handleChoice(choice) {
             if (choice === questions[currentIdx].answer) {
                 correctSound.play();
-                document.body.style.backgroundColor = "#004400"; // Green Flash
+                document.body.style.backgroundColor = "#004400";
                 currentIdx++;
                 setTimeout(() => {
                     document.body.style.backgroundColor = "#001122";
@@ -268,7 +248,7 @@
                 }, 200);
             } else {
                 wrongSound.play();
-                document.body.style.backgroundColor = "#440000"; // Red Flash
+                document.body.style.backgroundColor = "#440000";
                 showVisualEffect('💔', 'heartbreak');
                 setTimeout(() => {
                     document.body.style.backgroundColor = "#001122";
@@ -281,10 +261,9 @@
             document.getElementById('game-container').style.display = 'none';
             const screen = document.getElementById('end-screen');
             screen.style.display = 'block';
-            
             if (isWin) {
                 document.getElementById('end-title').innerText = "🏆 YOU ESCAPED!";
-                document.getElementById('end-message').innerText = "Excellent work, Class 8A!";
+                document.getElementById('end-message').innerText = "Excellent work, Kareem and Class 8A!";
                 for(let i=0; i<20; i++) {
                     setTimeout(() => showVisualEffect('🎆', 'firework'), i * 150);
                 }
@@ -293,7 +272,6 @@
                 document.getElementById('end-message').innerText = "One mistake was all it took...";
             }
         }
-
         updateGame();
     </script>
 </body>
