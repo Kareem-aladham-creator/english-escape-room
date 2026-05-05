@@ -3,218 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Escape Room</title>
+    <title>English Escape Room - Class 8A</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
-
-        :root {
-            --dark-blue: #173796;
-            --neon-cyan: #00f2ff;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: 'DynaPuff', cursive;
-        }
-
+        /* === THEME & LAYOUT === */
         body {
-            background-color: var(--dark-blue);
-            color: white;
+            background-color: #001122; /* Deep dark blue */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Floating Background Words */
-        .bg-words {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 5%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .side {
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            height: 100%;
-            opacity: 0.15;
-        }
-
-        .float-word {
-            font-size: 2.5rem;
-            color: var(--neon-cyan);
-            animation: floatUp 6s ease-in-out infinite;
-        }
-
-        @keyframes floatUp {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-30px); }
-        }
-
-        /* Main Game Box */
-        .game-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 30px;
-            border: 2px solid var(--neon-cyan);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
-        }
-
-        h1 { margin-top: 0; font-size: 2.5rem; }
-        h2 { color: var(--neon-cyan); }
-        p.question-text { font-size: 1.5rem; margin-bottom: 30px; }
-
-        /* Buttons */
-        .btn-grid {
-            display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            gap: 15px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #3399ff;
+            text-shadow: 0 0 10px rgba(51, 153, 255, 0.5);
+            margin-bottom: 5px;
+        }
+
+        /* === MAZE BOARD === */
+        .maze-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            background-color: #002244;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0 auto 20px auto;
+            max-width: 350px; 
+            border: 3px solid #0055ff;
+        }
+
+        .maze-cell {
+            aspect-ratio: 1; 
+            background-color: #004488; 
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px; 
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .maze-cell.active {
+            background-color: #3399ff; 
+            box-shadow: 0 0 15px #3399ff;
+        }
+
+        /* === GAME CONTAINERS === */
+        #game-container, #win-screen, #lose-screen {
+            background-color: #002244;
+            border: 2px solid #0055ff;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 85, 255, 0.2);
+        }
+
+        #win-screen, #lose-screen {
+            display: none;
+        }
+
+        .question {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         button {
-            background: linear-gradient(135deg, var(--neon-cyan), #0077ff);
-            color: var(--dark-blue);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 800;
+            background-color: #004488;
+            color: white;
+            border: 2px solid #0055ff;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
 
         button:hover {
-            background: white;
-            color: var(--dark-blue);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px var(--neon-cyan);
+            background-color: #0055ff;
+            transform: scale(1.02);
         }
 
-        .sys-btn {
-            background: white !important;
+        .stats {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #66b2ff;
         }
 
-        .hidden { display: none !important; }
-        .credits p { margin: 5px 0; opacity: 0.8; }
+        .credits {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #66b2ff;
+            opacity: 0.8;
+        }
+
+        /* === ANIMATIONS === */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heartbreak {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            font-size: 80px;
+            transform: translate(-50%, -50%);
+            animation: breakHeart 1s forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        @keyframes breakHeart {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.5) rotate(-15deg); opacity: 0.8; }
+            100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0; }
+        }
+
+        .firework {
+            position: fixed;
+            font-size: 50px;
+            animation: explode 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        @keyframes explode {
+            0% { transform: translateY(0) scale(0.5); opacity: 1; }
+            50% { transform: translateY(-100px) scale(1.5); opacity: 1; }
+            100% { transform: translateY(-150px) scale(2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Background Decoration -->
-    <div class="bg-words">
-        <div class="side">
-            <span class="float-word">Grammar</span>
-            <span class="float-word">Noun</span>
-        </div>
-        <div class="side">
-            <span class="float-word">Verb</span>
-            <span class="float-word">Tense</span>
+    <h1>English Escape Room</h1>
+    <p style="color: #66b2ff; margin-bottom: 20px;">Solve the 20 riddles to escape!</p>
+
+    <!-- The Maze -->
+    <div class="maze-board" id="maze-board"></div>
+
+    <!-- The Game Box -->
+    <div id="game-container">
+        <div id="question-text" class="question fade-in">Loading question...</div>
+        <div id="options-container" class="options fade-in"></div>
+        
+        <div class="stats">
+            <span id="progress-text">Question: 1/20</span>
+            <span id="lives-text">Lives: ❤️❤️❤️</span>
         </div>
     </div>
 
-    <!-- Active Game Area -->
-    <div id="play-area" class="game-container">
-        <h1>English Escape Room</h1>
-        <h2 id="riddle-number">Riddle 1</h2>
-        <p id="riddle-text" class="question-text">Loading...</p>
-        <div id="btn-zone" class="btn-grid"></div>
+    <!-- Win Screen -->
+    <div id="win-screen">
+        <h2>🎉 You Escaped! 🎉</h2>
+        <p>Incredible job! You solved all 20 English riddles.</p>
+        <button onclick="location.reload()">Play Again</button>
     </div>
 
-    <!-- Victory Screen (Exactly 20) -->
-    <div id="victory-area" class="game-container hidden">
-        <h1>Victory! 🏆</h1>
-        <p class="question-text">You survived the Escape Room!</p>
-        <div class="credits">
-            <p><strong>Made by Kareem Aladham</strong></p>
-            <p>Class 8A - Teacher Hiba Hilal</p>
-        </div>
-        <button class="sys-btn" onclick="location.reload()">Play Again</button>
+    <!-- Lose Screen -->
+    <div id="lose-screen">
+        <h2>Game Over</h2>
+        <p>You ran out of lives. The room is locked!</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 
-    <!-- Fail Screen -->
-    <div id="fail-area" class="game-container hidden">
-        <h1>Hard Luck 💔</h1>
-        <p class="question-text">One wrong move ended the escape!</p>
-        <button class="sys-btn" onclick="location.reload()">Try Again</button>
+    <div class="credits">
+        Project by Kareem Aladham<br>
+        Class 8A - Teacher Hiba Hilal
     </div>
 
     <script>
-        // Exactly 20 Riddles with verified logic
-        const allRiddles = [
-            { q: "You expect one thing, but the opposite occurs. A fire station burning?", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
-            { q: "Belonging to 'it'—without a tick.", options: ["Its", "It's"], a: "Its" },
-            { q: "I am the past of 'eat'.", options: ["Ate", "Eaten"], a: "Ate" },
-            { q: "A specific place or name, like London.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
-            { q: "What is the plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
-            { q: "I am the 'captain' of the sentence.", options: ["Who", "Whom"], a: "Who" },
-            { q: "Giving human traits to non-human things.", options: ["Personification", "Hyperbole"], a: "Personification" },
-            { q: "I am the time and place of the story.", options: ["Setting", "Conflict"], a: "Setting" },
-            { q: "The highest point of tension in a plot.", options: ["Climax", "Resolution"], a: "Climax" },
-            { q: "The struggle between opposing forces.", options: ["Conflict", "Theme"], a: "Conflict" },
-            { q: "Sarah or Chloe will give ___ presentation.", options: ["Her", "Their"], a: "Her" },
-            { q: "Nouns joined by 'and' use which pronoun?", options: ["Singular", "Plural"], a: "Plural" },
-            { q: "Possessive of one student?", options: ["Student's", "Students'"], a: "Student's" },
-            { q: "I mean 'you are'—which one am I?", options: ["Your", "You're"], a: "You're" },
-            { q: "A negative word meaning 'almost not'.", options: ["Scarcely", "Quickly"], a: "Scarcely" },
-            { q: "Double negative: 'We didn't see ___'.", options: ["nobody", "anybody"], a: "nobody" },
-            { q: "I join words together like 'but' or 'and'.", options: ["Conjunction", "Adjective"], a: "Conjunction" },
-            { q: "I describe a noun, like 'blue' or 'fast'.", options: ["Adjective", "Verb"], a: "Adjective" },
-            { q: "I relate the noun to the rest of the sentence.", options: ["Relative Pronoun", "Verb"], a: "Relative Pronoun" },
-            { q: "I express strong feelings like 'Wow!'.", options: ["Interjection", "Noun"], a: "Interjection" }
+        // === GAME DATA: THE 20 ENGLISH RIDDLES ===
+        const questions = [
+            { q: "I have words, but I never speak. I have a spine, but I have no bones. What am I?", options: ["A dictionary", "A book", "A teacher", "A newspaper"], answer: 1 },
+            { q: "I am tall when I'm young, and I'm short when I'm old. What am I?", options: ["A tree", "A building", "A candle", "A shadow"], answer: 2 },
+            { q: "What has keys but can't open locks?", options: ["A piano", "A map", "A safe", "A car"], answer: 0 },
+            { q: "Which letter of the alphabet has the most water?", options: ["C", "O", "W", "S"], answer: 0 },
+            { q: "What comes once in a minute, twice in a moment, but never in a thousand years?", options: ["The letter A", "The letter M", "The sun", "A clock"], answer: 1 },
+            { q: "What has to be broken before you can use it?", options: ["A coconut", "A secret", "A promise", "An egg"], answer: 3 },
+            { q: "What has a head and a tail but no body?", options: ["A snake", "A coin", "A comet", "A rope"], answer: 1 },
+            { q: "I begin with T, end with T, and have T in me. What am I?", options: ["A tent", "A teapot", "A target", "A toast"], answer: 1 },
+            { q: "What belongs to you, but other people use it more than you do?", options: ["Your house", "Your money", "Your name", "Your phone"], answer: 2 },
+            { q: "If I have it, I don't share it. If I share it, I don't have it. What is it?", options: ["A secret", "A dream", "A thought", "A meal"], answer: 0 },
+            { q: "What goes up but never comes down?", options: ["A balloon", "A bird", "Your age", "An airplane"], answer: 2 },
+            { q: "What gets wetter as it dries?", options: ["A sponge", "A towel", "A cloud", "A river"], answer: 1 },
+            { q: "What has hands but cannot clap?", options: ["A robot", "A statue", "A tree", "A clock"], answer: 3 },
+            { q: "What month of the year has 28 days?", options: ["February", "December", "All of them", "None of them"], answer: 2 },
+            { q: "What has many teeth, but can't bite?", options: ["A zipper", "A gear", "A comb", "A saw"], answer: 2 },
+            { q: "What has an eye but cannot see?", options: ["A needle", "A storm", "A potato", "All of these"], answer: 3 },
+            { q: "What word is spelled wrong in the dictionary?", options: ["Mistake", "Error", "Wrong", "Incorrect"], answer: 2 },
+            { q: "I have branches, but no fruit, trunk or leaves. What am I?", options: ["A bank", "A river", "A road", "A family tree"], answer: 0 },
+            { q: "The more of this there is, the less you see. What is it?", options: ["Light", "Fog", "Darkness", "Air"], answer: 2 },
+            { q: "What starts with an E, ends with an E, but only contains one letter?", options: ["An envelope", "An eagle", "An engine", "An eye"], answer: 0 }
         ];
 
-        let currentStep = 0;
+        // === VARIABLES ===
+        let currentQuestion = 0;
+        let lives = 3;
 
-        function loadRiddle() {
-            // Failsafe: Check if we reached the end
-            if (currentStep >= 20) {
-                document.getElementById('play-area').classList.add('hidden');
-                document.getElementById('victory-area').classList.remove('hidden');
+        // === MAZE LOGIC ===
+        const mazePath = [0, 1, 2, 3, 4, 9, 8, 7, 6, 5, 10, 11, 12, 13, 14, 19, 18, 17, 16, 15];
+        const mazeBoard = document.getElementById('maze-board');
+        let cells = [];
+
+        for (let i = 0; i < 20; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('maze-cell');
+            mazeBoard.appendChild(cell);
+            cells.push(cell);
+        }
+
+        function updateMaze() {
+            cells.forEach(cell => {
+                cell.innerHTML = '';
+                cell.classList.remove('active');
+            });
+            cells[mazePath[19]].innerHTML = '🏁';
+            
+            if (currentQuestion < 20) {
+                const currentSpot = mazePath[currentQuestion];
+                cells[currentSpot].classList.add('active');
+                cells[currentSpot].innerHTML = '🏃‍♂️';
+            } else {
+                cells[mazePath[19]].classList.add('active');
+                cells[mazePath[19]].innerHTML = '🏃‍♂️🏁';
+            }
+        }
+
+        // === VISUAL EFFECTS LOGIC ===
+        function showEffect(emoji, className) {
+            const effect = document.createElement('div');
+            effect.innerText = emoji;
+            effect.classList.add(className);
+            if(className === 'firework') {
+                effect.style.left = Math.random() * 80 + 10 + '%';
+                effect.style.top = Math.random() * 80 + 10 + '%';
+            }
+            document.body.appendChild(effect);
+            setTimeout(() => { effect.remove(); }, 1500);
+        }
+
+        // === CORE GAME LOGIC ===
+        function loadQuestion() {
+            if (currentQuestion >= 20) {
+                winGame();
                 return;
             }
 
-            const currentData = allRiddles[currentStep];
-            document.getElementById('riddle-number').innerText = `Riddle ${currentStep + 1} of 20`;
-            document.getElementById('riddle-text').innerText = currentData.q;
-            
-            const btnZone = document.getElementById('btn-zone');
-            btnZone.innerHTML = ''; // Clear old buttons
-            
-            currentData.options.forEach(optionText => {
+            const q = questions[currentQuestion];
+            const questionText = document.getElementById('question-text');
+            const optionsContainer = document.getElementById('options-container');
+
+            // Trigger Fade Animation
+            questionText.classList.remove('fade-in');
+            optionsContainer.classList.remove('fade-in');
+            void questionText.offsetWidth; 
+            questionText.classList.add('fade-in');
+            optionsContainer.classList.add('fade-in');
+
+            questionText.innerText = q.q;
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.innerText = optionText;
-                btn.onclick = () => checkAnswer(optionText, currentData.a);
-                btnZone.appendChild(btn);
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(btn);
             });
+
+            document.getElementById('progress-text').innerText = `Question: ${currentQuestion + 1}/20`;
+            updateMaze();
         }
 
-        function checkAnswer(selected, correct) {
-            if (selected === correct) {
-                currentStep++;
-                loadRiddle(); // Load next or win
+        function checkAnswer(selectedIndex) {
+            if (selectedIndex === questions[currentQuestion].answer) {
+                // Correct!
+                currentQuestion++;
+                loadQuestion();
             } else {
-                document.getElementById('play-area').classList.add('hidden');
-                document.getElementById('fail-area').classList.remove('hidden');
+                // Wrong!
+                lives--;
+                updateLivesDisplay();
+                showEffect('💔', 'heartbreak');
+                
+                if (lives <= 0) {
+                    loseGame();
+                }
             }
         }
 
+        function updateLivesDisplay() {
+            let hearts = '';
+            for(let i=0; i<lives; i++) hearts += '❤️';
+            for(let i=0; i<(3-lives); i++) hearts += '🖤';
+            document.getElementById('lives-text').innerText = `Lives: ${hearts}`;
+        }
+
+        function winGame() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('win-screen').style.display = 'block';
+            updateMaze();
+            for(let i = 0; i < 15; i++) {
+                setTimeout(() => showEffect('🎆', 'firework'), i * 200);
+            }
+        }
+
+        function loseGame() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('lose-screen').style.display = 'block';
+        }
+
         // Start the game immediately
-        loadRiddle();
+        loadQuestion();
     </script>
 </body>
 </html>
-
