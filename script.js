@@ -1,95 +1,49 @@
-const correctSound = new Audio('correct.mp3');
-const wrongSound = new Audio('wrong.mp3');
-
 const questions = [
-    { q: "The captain is _____?", options: ["whom", "who"], a: "who" },
-    { q: "By _____ was this masterpiece painted?", options: ["who", "whom"], a: "whom" },
-    { q: "The athlete _____ won the gold medal is my cousin.", options: ["who", "whom"], a: "who" },
-    { q: "To _____ should the invitation be sent?", options: ["who", "whom"], a: "whom" },
-    { q: "What is situational irony?", options: ["You say something but mean something else", "You expect something but something else happens"], a: "You expect something but something else happens" },
-    { q: "Which device gives human traits to non-human things?", options: ["Hyperbole", "Personification"], a: "Personification" },
-    { q: "What does the 'Setting' include?", options: ["Time, location, and environment", "Secondary characters"], a: "Time, location, and environment" },
-    { q: "The 'Climax' of a story is:", options: ["The beginning", "Turning point of highest tension"], a: "Turning point of highest tension" },
-    { q: "Conflict refers to:", options: ["Struggle between opposing forces", "Resolution"], a: "Struggle between opposing forces" },
-    { q: "Either Sarah or Chloe will give ___ presentation first.", options: ["their", "her"], a: "her" },
-    { q: "Nouns joined by 'and' typically use which pronoun?", options: ["Plural", "Singular"], a: "Plural" },
-    { q: "Which indefinite pronoun is always plural?", options: ["Several", "Everyone"], a: "Several" },
-    { q: "Correct possessive of a singular noun?", options: ["The student's essay", "The students' essay"], a: "The student's essay" },
-    { q: "Which uses 'its' correctly as a possessive?", options: ["I think its going to rain.", "The tree lost all of its leaves."], a: "The tree lost all of its leaves." },
-    { q: "____ going to be late for ____ flight.", options: ["You're; your", "Your; you're"], a: "You're; your" },
-    { q: "Which word is a negative word that often causes errors?", options: ["Scarcely", "Quickly"], a: "Scarcely" },
-    { q: "Correct: 'I don't want nothing for my birthday.'", options: ["I don't want anything for my birthday.", "I don't want none for my birthday."], a: "I don't want anything for my birthday." },
-    { q: "Which is grammatically correct?", options: ["Don't have no homework", "The students have no homework today."], a: "The students have no homework today." },
+    { q: "You expect one thing, but the opposite occurs. A fire station burning? That's me, for sure.", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
+    { q: "I am not 'your,' though we sound just the same. I mean 'you are'—what is my name?", options: ["Your", "You're"], a: "You're" },
+    { q: "I lead the sentence as the subject of the play. I am the 'captain'—what do you say?", options: ["Who", "Whom"], a: "Who" },
+    { q: "I make the wind whisper and the trees start to dance. I give human life to things at a glance.", options: ["Hyperbole", "Personification"], a: "Personification" },
+    { q: "I am the time of day and the place on the map. I hold the story's world right in my lap.", options: ["Conflict", "Setting"], a: "Setting" },
+    { q: "I am the highest point, the heat of the fire. The moment of tension that couldn't get higher.", options: ["Climax", "Resolution"], a: "Climax" },
+    { q: "I am the battle between two sides in a book. Without my struggle, there’s no reason to look.", options: ["Conflict", "Setting"], a: "Conflict" },
+    { q: "When Sarah or Chloe speaks, they use me alone. I’m the singular pronoun they claim as their own.", options: ["Her", "Their"], a: "Her" },
+    { q: "When 'and' joins two nouns, we become a team. Which pronoun type fits this pluralized dream?", options: ["Singular", "Plural"], a: "Plural" },
+    { q: "I belong to one student, an essay so fine. Where does my apostrophe mark the line?", options: ["Student's", "Students'"], a: "Student's" },
+    { q: "I am a negative word, quiet and rare. I mean 'almost not,' like a ghost in the air.", options: ["Scarcely", "Quickly"], a: "Scarcely" },
     { q: "Identify the double negative: 'We didn't see nobody.'", options: ["didn't and nobody", "We and nobody"], a: "didn't and nobody" },
-    { q: "Can 'any' replace 'none' in 'I haven't none'?", options: ["any", "nothing"], a: "any" },
-    // Adding 5 more for the "Race to 25" rule
-    { q: "Choose the proper noun:", options: ["London", "city"], a: "London" },
-    { q: "Which is an adjective?", options: ["Run", "Beautiful"], a: "Beautiful" },
-    { q: "Past tense of 'eat'?", options: ["Ate", "Eaten"], a: "Ate" },
-    { q: "Plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
-    { q: "Which word is a conjunction?", options: ["But", "Quickly"], a: "But" }
+    { q: "I am a specific place, like London or Rome. I need a capital letter to feel at home.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
+    { q: "I am the past of 'eat,' a meal that is through. I rhyme with 'gate'—what am I to you?", options: ["Ate", "Eaten"], a: "Ate" },
+    { q: "One of me is a 'child,' but more is a crowd. We rhyme with 'men'—say it out loud!", options: ["Childs", "Children"], a: "Children" },
+    { q: "I join words together, like 'but' or 'and.' I am the bridge that helps the sentence stand.", options: ["Conjunction", "Adjective"], a: "Conjunction" },
+    { q: "I am a word like 'beautiful' or 'fast.' I describe the noun until the very last.", options: ["Adjective", "Verb"], a: "Adjective" },
+    { q: "I mean 'belonging to it,' without a tick. If you add an apostrophe, you've missed the trick!", options: ["Its", "It's"], a: "Its" },
+    { q: "I am a bridge between ideas, starting with 'wh-'. I relate the noun to the rest of the crew.", options: ["Relative Pronoun", "Verb"], a: "Relative Pronoun" },
+    { q: "I am a feeling expressed in a word. 'Wow!' or 'Ouch!' are the sounds often heard.", options: ["Interjection", "Noun"], a: "Interjection" }
 ];
 
 let score = 0;
 let currentQ = 0;
-const mazePath = [{t:5,l:5},{t:12,l:5},{t:19,l:5},{t:26,l:5},{t:33,l:5},{t:40,l:5},{t:40,l:15},{t:40,l:25},{t:40,l:33},{t:40,l:40},{t:48,l:40},{t:56,l:40},{t:64,l:40},{t:70,l:40},{t:70,l:50},{t:70,l:60},{t:70,l:70},{t:70,l:80},{t:78,l:80},{t:86,l:80},{t:94,l:80},{t:94,l:85},{t:94,l:90},{t:94,l:95},{t:94,l:99}];
-
-function loadQuestion() {
-    if (currentQ < questions.length) {
-        const qData = questions[currentQ];
-        document.getElementById("riddle-title").innerText = "Riddle " + (currentQ + 1);
-        document.getElementById("question-text").innerText = qData.q;
-        const container = document.getElementById("options-container");
-        container.innerHTML = "";
-        qData.options.forEach(opt => {
-            const btn = document.createElement("button");
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(opt);
-            container.appendChild(btn);
-        });
-    }
-}
 
 function checkAnswer(selected) {
     if (selected === questions[currentQ].a) {
-        correctSound.play();
-        
-        // Turn screen green
-        document.body.classList.add("correct-flash");
-        setTimeout(() => document.body.classList.remove("correct-flash"), 500);
-
         score++;
         currentQ++;
         
-        if (score < mazePath.length) {
-            const pos = mazePath[score];
-            document.getElementById("character").style.top = pos.t + "%";
-            document.getElementById("character").style.left = pos.l + "%";
-        }
-
-        if (score >= 25) {
-            setTimeout(() => {
-                document.getElementById("game-container").classList.add("hidden");
-                document.getElementById("win-screen").classList.remove("hidden");
-            }, 500);
+        // WIN BUG FIX: Checks if score is 20
+        if (score >= 20) {
+            showWinScreen();
         } else {
             loadQuestion();
         }
     } else {
-        wrongSound.play();
-        document.getElementById("game-container").classList.add("hidden");
-        document.getElementById("lose-screen").classList.remove("hidden");
+        showLoseScreen();
     }
 }
 
-function resetGame() {
-    score = 0; currentQ = 0;
-    document.getElementById("character").style.top = "5%";
-    document.getElementById("character").style.left = "5%";
-    document.getElementById("win-screen").classList.add("hidden");
-    document.getElementById("lose-screen").classList.add("hidden");
-    document.getElementById("game-container").classList.remove("hidden");
-    loadQuestion();
+function showWinScreen() {
+    document.getElementById("game-container").classList.add("hidden");
+    const winScreen = document.getElementById("win-screen");
+    winScreen.classList.remove("hidden");
+    // Ensure only the trophy is here
+    winScreen.innerHTML = "<h1>You Win! 🏆</h1><button onclick='resetGame()'>Play Again</button>";
 }
-
-loadQuestion();
