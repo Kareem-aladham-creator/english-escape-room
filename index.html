@@ -8,49 +8,49 @@
 </head>
 <body>
     <!-- Balanced Floating Words -->
-    <div class="background-elements">
-        <div class="float-side left-side">
-            <span class="word w1">Grammar</span>
-            <span class="word w2">ABC</span>
-            <span class="word w3">Tense</span>
+    <div class="floating-bg">
+        <div class="column-left">
+            <span class="f-word c1">Grammar</span>
+            <span class="f-word c2">ABC</span>
+            <span class="f-word c3">Tense</span>
         </div>
-        <div class="float-side right-side">
-            <span class="word w4">Verb</span>
-            <span class="word w5">Noun</span>
-            <span class="word w6">Phrase</span>
+        <div class="column-right">
+            <span class="f-word c4">Verb</span>
+            <span class="f-word c5">Noun</span>
+            <span class="f-word c6">Phrase</span>
         </div>
     </div>
 
-    <div id="game-container">
-        <h1 class="main-title">English Escape Room</h1>
+    <div id="main-game">
+        <h1 class="project-title">English Escape Room</h1>
         
-        <div id="maze-box">
-            <div id="runner">🏃‍♂️</div>
+        <div id="maze-container">
+            <div id="player">🏃‍♂️</div>
         </div>
 
-        <div id="quiz-area">
-            <h2 id="riddle-header">Riddle 1</h2>
-            <p id="question-text">Loading...</p>
-            <div id="btn-group"></div>
+        <div id="question-box">
+            <h2 id="riddle-id">Riddle 1</h2>
+            <p id="riddle-text">Loading...</p>
+            <div id="answers"></div>
         </div>
     </div>
 
     <!-- Win Screen: 🏆 ONLY -->
-    <div id="win-screen" class="screen hidden">
-        <h1 class="victory-text">Victory! 🏆</h1>
-        <p>You mastered 20 riddles!</p>
+    <div id="victory-panel" class="overlay hidden">
+        <h1>Victory! 🏆</h1>
+        <p>You escaped with 20/20!</p>
         <div class="credits">
             <p>Made by Kareem Aladham</p>
-            <p>Teacher Hiba Hilal - 8A</p>
+            <p>Teacher Hiba Hilal - Class 8A</p>
         </div>
-        <button class="retry-btn" onclick="location.reload()">Play Again</button>
+        <button onclick="location.reload()">Play Again</button>
     </div>
 
     <!-- Lose Screen: 💔 ONLY -->
-    <div id="lose-screen" class="screen hidden">
-        <h1 class="fail-text">Hard Luck 💔</h1>
-        <p>One mistake ended the escape!</p>
-        <button class="retry-btn" onclick="location.reload()">Try Again</button>
+    <div id="fail-panel" class="overlay hidden">
+        <h1>Hard Luck 💔</h1>
+        <p>One mistake and the door locked!</p>
+        <button onclick="location.reload()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
