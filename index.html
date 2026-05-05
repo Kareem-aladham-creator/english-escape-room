@@ -8,49 +8,49 @@
 </head>
 <body>
     <!-- Balanced Floating Words -->
-    <div class="floating-container">
-        <div class="side-left">
+    <div class="bg-layer">
+        <div class="col-left">
             <span class="f-word">Grammar</span>
             <span class="f-word">ABC</span>
             <span class="f-word">Tense</span>
         </div>
-        <div class="side-right">
+        <div class="col-right">
             <span class="f-word">Verb</span>
             <span class="f-word">Noun</span>
             <span class="f-word">Phrase</span>
         </div>
     </div>
 
-    <div id="game-container">
-        <h1 class="title">English Escape Room</h1>
+    <div id="game-ui">
+        <h1 class="main-title">English Escape Room</h1>
         
-        <div id="maze-area">
-            <div id="player-icon">🏃‍♂️</div>
+        <div id="maze-viz">
+            <div id="player-sprite">🏃‍♂️</div>
         </div>
 
-        <div id="quiz-box">
-            <h2 id="riddle-count">Riddle 1</h2>
-            <p id="riddle-text">Loading...</p>
-            <div id="option-buttons"></div>
+        <div id="quiz-container">
+            <h2 id="riddle-header">Riddle 1</h2>
+            <p id="riddle-prompt">Loading...</p>
+            <div id="btn-container"></div>
         </div>
     </div>
 
-    <!-- Win Screen: 🏆 ONLY -->
-    <div id="win-screen" class="end-screen hidden">
+    <!-- Victory Screen (NO Heartbreak) -->
+    <div id="win-panel" class="modal hidden">
         <h1>Victory! 🏆</h1>
-        <p>You mastered all 20 riddles!</p>
+        <p>You mastered 20 riddles!</p>
         <div class="credits">
             <p>Made by Kareem Aladham</p>
             <p>Class 8A - Teacher Hiba Hilal</p>
         </div>
-        <button class="reset-btn" onclick="location.reload()">Play Again</button>
+        <button class="retry-btn" onclick="location.reload()">Play Again</button>
     </div>
 
-    <!-- Lose Screen: 💔 ONLY -->
-    <div id="lose-screen" class="end-screen hidden">
+    <!-- Fail Screen (💔 ONLY) -->
+    <div id="lose-panel" class="modal hidden">
         <h1>Hard Luck 💔</h1>
-        <p>One mistake ended the escape!</p>
-        <button class="reset-btn" onclick="location.reload()">Try Again</button>
+        <p>The escape failed!</p>
+        <button class="retry-btn" onclick="location.reload()">Try Again</button>
     </div>
 
     <script src="script.js"></script>
