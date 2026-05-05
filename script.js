@@ -25,39 +25,39 @@ let currentIndex = 0;
 
 function loadNext() {
     const data = riddles[currentIndex];
-    const box = document.getElementById("question-box");
+    const box = document.getElementById("riddle-box");
     
-    // Trigger fade-in animation
+    // Reset animation
     box.style.animation = 'none';
-    box.offsetHeight; 
+    box.offsetHeight; // Trigger reflow
     box.style.animation = 'fadeIn 0.6s ease-out';
 
-    document.getElementById("riddle-id").innerText = `Riddle ${currentIndex + 1}`;
+    document.getElementById("riddle-number").innerText = `Riddle ${currentIndex + 1}`;
     document.getElementById("riddle-text").innerText = data.q;
     
-    const ansContainer = document.getElementById("answers");
-    ansContainer.innerHTML = "";
+    const optionsContainer = document.getElementById("options-group");
+    optionsContainer.innerHTML = "";
     
     data.options.forEach(opt => {
-        const b = document.createElement("button");
-        b.innerText = opt;
-        b.onclick = () => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => {
             if (opt === data.a) {
                 currentIndex++;
                 if (currentIndex === 20) {
                     // WIN TRIGGER: Shows ONLY trophy screen
-                    document.getElementById("main-game").classList.add("hidden");
+                    document.getElementById("game-wrapper").classList.add("hidden");
                     document.getElementById("victory-panel").classList.remove("hidden");
                 } else {
                     loadNext();
                 }
             } else {
                 // LOSE TRIGGER: Shows heartbreak screen
-                document.getElementById("main-game").classList.add("hidden");
+                document.getElementById("game-wrapper").classList.add("hidden");
                 document.getElementById("fail-panel").classList.remove("hidden");
             }
         };
-        ansContainer.appendChild(b);
+        optionsContainer.appendChild(btn);
     });
 }
 
