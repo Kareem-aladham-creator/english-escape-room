@@ -1,74 +1,111 @@
+/* Import DynaPuff Font */
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
 
+:root {
+    --main-blue: #173796;
+    --accent-cyan: #00f2ff;
+    --glass-white: rgba(255, 255, 255, 0.1);
+}
+
 body {
-    background-color: #173796; /* Deep Blue Theme */
+    background-color: var(--main-blue);
     color: white;
     font-family: 'DynaPuff', cursive;
     margin: 0;
-    overflow: hidden;
+    overflow: hidden; /* Keeps floating words contained */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-/* Floating Words */
+/* --- Floating Background Words --- */
+.floating-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
 .f-word {
     position: absolute;
-    font-size: 1.5rem;
-    opacity: 0.2; /* Faded effect */
-    animation: floatAnim 8s ease-in-out infinite;
-    z-index: -1;
+    font-family: 'DynaPuff', cursive;
+    opacity: 0.15; /* Faded effect */
+    transition: color 2s ease;
 }
 
-.left { left: 5%; }
-.right { right: 5%; }
+/* Balanced Placement */
+.left { left: 8%; }
+.right { right: 8%; }
 
-/* Different Colors for Words */
-.w1 { color: #00d4ff; top: 10%; animation-delay: 0s; }
-.w2 { color: #ffffff; top: 40%; animation-delay: 2s; }
-.w3 { color: #00ffaa; top: 70%; animation-delay: 4s; }
-.w4 { color: #00d4ff; top: 15%; animation-delay: 1s; }
-.w5 { color: #ffffff; top: 45%; animation-delay: 3s; }
-.w6 { color: #00ffaa; top: 75%; animation-delay: 5s; }
+/* Unique animations to keep them balanced but moving */
+.w1 { top: 15%; color: var(--accent-cyan); animation: floatLeft 7s infinite ease-in-out; }
+.w2 { top: 45%; color: #ffffff; animation: floatLeft 9s infinite ease-in-out; animation-delay: 1s; }
+.w3 { top: 75%; color: var(--accent-cyan); animation: floatLeft 8s infinite ease-in-out; animation-delay: 2s; }
 
-@keyframes floatAnim {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-30px); }
+.w4 { top: 20%; color: #ffffff; animation: floatRight 8s infinite ease-in-out; }
+.w5 { top: 50%; color: var(--accent-cyan); animation: floatRight 10s infinite ease-in-out; animation-delay: 1.5s; }
+.w6 { top: 80%; color: #ffffff; animation: floatRight 7s infinite ease-in-out; animation-delay: 0.5s; }
+
+@keyframes floatLeft {
+    0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+    50% { transform: translate(15px, -25px) rotate(2deg); }
 }
 
-/* Modern Glow Buttons */
+@keyframes floatRight {
+    0%, 100% { transform: translate(0, 0) rotate(2deg); }
+    50% { transform: translate(-15px, -25px) rotate(-2deg); }
+}
+
+/* --- Modern Riddle Box --- */
+#riddle-box {
+    background: var(--glass-white);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Modern Cyan Buttons (No Yellow) --- */
 button {
-    background-color: #FFD700;
+    background: linear-gradient(135deg, var(--accent-cyan), #00a2ff);
+    color: #173796;
     border: none;
-    padding: 15px 40px;
+    padding: 15px 35px;
     margin: 10px;
     border-radius: 15px;
     font-family: 'DynaPuff', cursive;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #ffffff;
-    color: #173796;
-    transform: scale(1.15); /* Modern pop effect */
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    background: #ffffff;
+    color: var(--main-blue);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 25px var(--accent-cyan);
 }
 
+/* --- Win/Lose Screen Fixes --- */
 .hidden { display: none !important; }
 
-/* Question Transition */
-#riddle-box {
-    animation: slideIn 0.5s ease-out;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-}
+#win-screen h1 { color: var(--accent-cyan); text-shadow: 0 0 15px var(--accent-cyan); }
+#lose-screen h1 { color: #ff4b4b; }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+.credits {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
