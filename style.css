@@ -1,96 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
 body {
-    background-color: #173796; 
+    background-color: #173796;
     color: white;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
+    font-family: 'DynaPuff', cursive;
     margin: 0;
-    overflow: hidden; 
-    transition: background-color 0.3s ease;
+    overflow: hidden; /* Keeps floating words inside */
 }
 
-/* Correct answer flash */
-.correct-flash {
-    background-color: #2ecc71 !important;
-}
-
-.bubble-font { font-family: 'DynaPuff', cursive; }
-
-.bg-word {
+/* Floating Words Styling */
+.floating-word {
     position: absolute;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.2);
+    font-family: 'DynaPuff', cursive;
+    opacity: 0.3; /* Faded effect */
+    animation: float 6s ease-in-out infinite;
     z-index: -1;
-    animation: floatText 4s ease-in-out infinite;
 }
 
-@keyframes floatText {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-.floating-words {
-    display: inline-block;
-    animation: floatText 3s ease-in-out infinite;
-}
-
-.heartbreak {
-    position: fixed;
-    display: none;
-    font-size: 60px;
-    bottom: -100px;
-    z-index: 1000;
-}
-
-#win-screen:not(.hidden) .heartbreak,
-#lose-screen:not(.hidden) .heartbreak {
-    display: block;
-    animation: flyUp 3s linear infinite;
-}
-
-@keyframes flyUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-}
-
-.heartbreak:nth-child(odd) { animation-delay: 0.5s; }
-.heartbreak:nth-child(even) { animation-delay: 1.2s; }
-
-#maze-container {
-    position: relative;
-    width: 300px; height: 300px;
-    background: #0047ff; 
-    border: 4px solid white;
-    border-radius: 20px;
-    margin: 10px auto;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-}
-
-#character {
-    position: absolute; font-size: 28px; 
-    transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    top: 5%; left: 5%; transform: translate(-50%, -50%);
-}
-
-#quiz-box {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    width: 80%; max-width: 500px;
-    margin: 10px auto; padding: 20px;
-    border-radius: 20px; border: 1px solid rgba(255,255,255,0.3);
-}
-
-#options-container { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-
+/* Modern Answer Buttons */
 button {
-    background: #ffd700; color: #000; border: none;
-    padding: 12px 35px; border-radius: 12px;
-    font-weight: 800; font-size: 1.1rem;
-    cursor: pointer; transition: 0.3s;
+    background-color: #FFD700;
+    border: none;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 12px;
+    font-family: 'DynaPuff', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Modern transition */
 }
 
-.hidden { display: none !important; }
-.fullscreen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 5000; background: #173796; }
-.bg-red { background: #b22222 !important; }
-.big-win { font-size: 4rem; }
-.credits { margin-top: 20px; line-height: 0.7; opacity: 0.8; }
+button:hover {
+    background-color: #ffffff;
+    color: #173796;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Question Animation */
+#riddle-container {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
