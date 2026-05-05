@@ -1,55 +1,51 @@
-const riddles = [
-    { q: "You expect one thing, but the opposite occurs. A fire station burning? That's me.", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
-    { q: "I mean 'belonging to it,' without a tick.", options: ["Its", "It's"], a: "Its" },
-    { q: "I am the past of 'eat,' a meal that is through.", options: ["Ate", "Eaten"], a: "Ate" },
-    { q: "I am a specific place, like London or Rome.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
+const data = [
+    { q: "A fire station burns down. What irony is this?", options: ["Situational", "Verbal"], a: "Situational" },
+    { q: "The toy belongs to 'it'. How do you write it?", options: ["Its", "It's"], a: "Its" },
+    { q: "Past tense of 'eat'?", options: ["Ate", "Eaten"], a: "Ate" },
+    { q: "Specific names like 'London' or 'Kareem'?", options: ["Proper Noun", "Common"], a: "Proper Noun" },
     { q: "Plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
-    { q: "I lead the sentence as the subject. I am the 'captain'.", options: ["Who", "Whom"], a: "Who" },
-    { q: "I give human traits to non-human things.", options: ["Hyperbole", "Personification"], a: "Personification" },
-    { q: "I am the time and place of the story.", options: ["Conflict", "Setting"], a: "Setting" },
-    { q: "The highest point of tension in a plot.", options: ["Climax", "Resolution"], a: "Climax" },
-    { q: "The struggle between opposing forces.", options: ["Conflict", "Setting"], a: "Conflict" },
-    { q: "Sarah or Chloe will give ___ presentation.", options: ["Her", "Their"], a: "Her" },
-    { q: "Nouns joined by 'and' use which pronoun?", options: ["Singular", "Plural"], a: "Plural" },
-    { q: "Possessive of one student?", options: ["Student's", "Students'"], a: "Student's" },
-    { q: "I mean 'you are'—which one am I?", options: ["Your", "You're"], a: "You're" },
-    { q: "A negative word meaning 'almost not'.", options: ["Scarcely", "Quickly"], a: "Scarcely" },
-    { q: "Double negative: 'We didn't see nobody'.", options: ["didn't/nobody", "We/nobody"], a: "didn't/nobody" },
-    { q: "I join words together like 'but' or 'and'.", options: ["Conjunction", "Adjective"], a: "Conjunction" },
-    { q: "I describe a noun, like 'blue' or 'fast'.", options: ["Adjective", "Verb"], a: "Adjective" },
-    { q: "I relate the noun to the rest of the sentence.", options: ["Relative Pronoun", "Verb"], a: "Relative Pronoun" },
-    { q: "I express strong feelings like 'Wow!'.", options: ["Interjection", "Noun"], a: "Interjection" }
+    { q: "I am the 'captain' subject of the sentence.", options: ["Who", "Whom"], a: "Who" },
+    { q: "Giving human traits to an object.", options: ["Simile", "Personification"], a: "Personification" },
+    { q: "Where and when the story happens.", options: ["Setting", "Plot"], a: "Setting" },
+    { q: "The highest point of tension in a story.", options: ["Climax", "Conflict"], a: "Climax" },
+    { q: "The main struggle in a story.", options: ["Conflict", "Theme"], a: "Conflict" },
+    { q: "Sarah or Chloe will give ___ talk.", options: ["Her", "Their"], a: "Her" },
+    { q: "Nouns joined by 'and' are usually ___.", options: ["Singular", "Plural"], a: "Plural" },
+    { q: "Possessive form of one student.", options: ["Student's", "Students'"], a: "Student's" },
+    { q: "Short for 'you are'.", options: ["Your", "You're"], a: "You're" },
+    { q: "Which means 'almost not'?", options: ["Scarcely", "Highly"], a: "Scarcely" },
+    { q: "Negative check: 'We didn't see ___'.", options: ["nobody", "anybody"], a: "nobody" },
+    { q: "I join words like 'and' or 'but'.", options: ["Conjunction", "Verb"], a: "Conjunction" },
+    { q: "I describe a noun, like 'blue' or 'fast'.", options: ["Adjective", "Adverb"], a: "Adjective" },
+    { q: "I relate a noun to the sentence.", options: ["Preposition", "Relative Pronoun"], a: "Relative Pronoun" },
+    { q: "I express strong emotion like 'Wow!'.", options: ["Interjection", "Noun"], a: "Interjection" }
 ];
 
-let progress = 0;
+let current = 0;
 
-function runGame() {
-    const r = riddles[progress];
-    document.getElementById("riddle-header").innerText = `Riddle ${progress + 1}`;
-    document.getElementById("riddle-prompt").innerText = r.q;
+function load() {
+    const r = data[current];
+    document.getElementById("q-label").innerText = `Riddle ${current + 1}`;
+    document.getElementById("q-text").innerText = r.q;
+    const area = document.getElementById("opt-btns");
+    area.innerHTML = "";
     
-    const container = document.getElementById("btn-container");
-    container.innerHTML = "";
-    
-    r.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.innerText = opt;
-        btn.onclick = () => {
-            if (opt === r.a) {
-                progress++;
-                if (progress === 20) {
-                    document.getElementById("game-ui").classList.add("hidden");
-                    document.getElementById("win-panel").classList.remove("hidden");
-                } else {
-                    runGame();
-                }
+    r.options.forEach(o => {
+        const b = document.createElement("button");
+        b.innerText = o;
+        b.onclick = () => {
+            if (o === r.a) {
+                current++;
+                if (current === 20) {
+                    document.getElementById("game-core").classList.add("hidden");
+                    document.getElementById("win-ui").classList.remove("hidden");
+                } else { load(); }
             } else {
-                document.getElementById("game-ui").classList.add("hidden");
-                document.getElementById("lose-panel").classList.remove("hidden");
+                document.getElementById("game-core").classList.add("hidden");
+                document.getElementById("fail-ui").classList.remove("hidden");
             }
         };
-        container.appendChild(btn);
+        area.appendChild(b);
     });
 }
-
-runGame();
+load();
