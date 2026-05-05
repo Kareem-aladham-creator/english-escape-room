@@ -4,37 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Escape Room</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+        :root {
+            --dark-blue: #173796;
+            --neon-cyan: #00f2ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'DynaPuff', cursive;
+        }
+
+        body {
+            background-color: var(--dark-blue);
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Floating Background Words */
+        .bg-words {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .side {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            opacity: 0.15;
+        }
+
+        .float-word {
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Main Game Box */
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid var(--neon-cyan);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.2);
+        }
+
+        h1 { margin-top: 0; font-size: 2.5rem; }
+        h2 { color: var(--neon-cyan); }
+        p.question-text { font-size: 1.5rem; margin-bottom: 30px; }
+
+        /* Buttons */
+        .btn-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--neon-cyan), #0077ff);
+            color: var(--dark-blue);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: white;
+            color: var(--dark-blue);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px var(--neon-cyan);
+        }
+
+        .sys-btn {
+            background: white !important;
+            margin-top: 20px;
+        }
+
+        .hidden { display: none !important; }
+        .credits p { margin: 5px 0; opacity: 0.8; }
+    </style>
 </head>
 <body>
-    <div class="side-deco">
-        <div class="l-stack"><span class="txt">Grammar</span><span class="txt">ABC</span></div>
-        <div class="r-stack"><span class="txt">Verb</span><span class="txt">Noun</span></div>
+
+    <!-- Background Decoration -->
+    <div class="bg-words">
+        <div class="side">
+            <span class="float-word">Grammar</span>
+            <span class="float-word">Noun</span>
+        </div>
+        <div class="side">
+            <span class="float-word">Verb</span>
+            <span class="float-word">Tense</span>
+        </div>
     </div>
 
-    <main id="game-deck">
-        <h1 class="top-title">English Escape Room</h1>
-        <div id="riddle-display">
-            <h2 id="counter">Riddle 1</h2>
-            <p id="prompt">Loading...</p>
-            <div id="button-grid"></div>
-        </div>
-    </main>
+    <!-- Active Game Area -->
+    <div id="play-area" class="game-container">
+        <h1>English Escape Room</h1>
+        <h2 id="riddle-number">Riddle 1</h2>
+        <p id="riddle-text" class="question-text">Loading...</p>
+        <div id="btn-zone" class="btn-grid"></div>
+    </div>
 
-    <div id="win-modal" class="ui-hidden">
+    <!-- Victory Screen (Exactly 20) -->
+    <div id="victory-area" class="game-container hidden">
         <h1>Victory! 🏆</h1>
-        <p>Master of 20 Riddles</p>
-        <div class="info">
-            <p>Made by Kareem Aladham</p>
+        <p class="question-text">You survived the Escape Room!</p>
+        <div class="credits">
+            <p><strong>Made by Kareem Aladham</strong></p>
             <p>Class 8A - Teacher Hiba Hilal</p>
         </div>
-        <button class="sys-btn" onclick="location.reload()">Replay</button>
+        <button class="sys-btn" onclick="location.reload()">Play Again</button>
     </div>
 
-    <div id="fail-modal" class="ui-hidden">
-        <h1>Game Over 💔</h1>
+    <!-- Fail Screen -->
+    <div id="fail-area" class="game-container hidden">
+        <h1>Hard Luck 💔</h1>
+        <p class="question-text">One wrong move ended the escape!</p>
         <button class="sys-btn" onclick="location.reload()">Try Again</button>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // Exactly 20 Riddles with verified logic
+        const allRiddles = [
+            { q: "You expect one thing, but the opposite occurs. A fire station burning?", options: ["Situational Irony", "Verbal Irony"], a: "Situational Irony" },
+            { q: "Belonging to 'it'—without a tick.", options: ["Its", "It's"], a: "Its" },
+            { q: "I am the past of 'eat'.", options: ["Ate", "Eaten"], a: "Ate" },
+            { q: "A specific place or name, like London.", options: ["Proper Noun", "Common Noun"], a: "Proper Noun" },
+            { q: "What is the plural of 'child'?", options: ["Childs", "Children"], a: "Children" },
+            { q: "I am the 'captain' of the sentence.", options: ["Who", "Whom"], a: "Who" },
+            { q: "Giving human traits to non-human things.", options: ["Personification", "Hyperbole"], a: "Personification" },
+            { q: "I am the time and place of the story.", options: ["Setting", "Conflict"], a: "Setting" },
+            { q: "The highest point of tension in a plot.", options: ["Climax", "Resolution"], a: "Climax" },
+            { q: "The struggle between opposing forces.", options: ["Conflict", "Theme"], a: "Conflict" },
+            { q: "Sarah or Chloe will give ___ presentation.", options: ["Her", "Their"], a: "Her" },
+            { q: "Nouns joined by 'and' use which pronoun?", options: ["Singular", "Plural"], a: "Plural" },
+            { q: "Possessive of one student?", options: ["Student's", "Students'"], a: "Student's" },
+            { q: "I mean 'you are'—which one am I?", options: ["Your", "You're"], a: "You're" },
+            { q: "A negative word meaning 'almost not'.", options: ["Scarcely", "Quickly"], a: "Scarcely" },
+            { q: "Double negative: 'We didn't see ___'.", options: ["nobody", "anybody"], a: "nobody" },
+            { q: "I join words together like 'but' or 'and'.", options: ["Conjunction", "Adjective"], a: "Conjunction" },
+            { q: "I describe a noun, like 'blue' or 'fast'.", options: ["Adjective", "Verb"], a: "Adjective" },
+            { q: "I relate the noun to the rest of the sentence.", options: ["Relative Pronoun", "Verb"], a: "Relative Pronoun" },
+            { q: "I express strong feelings like 'Wow!'.", options: ["Interjection", "Noun"], a: "Interjection" }
+        ];
+
+        let currentStep = 0;
+
+        function loadRiddle() {
+            // Failsafe: Check if we reached the end
+            if (currentStep >= 20) {
+                document.getElementById('play-area').classList.add('hidden');
+                document.getElementById('victory-area').classList.remove('hidden');
+                return;
+            }
+
+            const currentData = allRiddles[currentStep];
+            document.getElementById('riddle-number').innerText = `Riddle ${currentStep + 1} of 20`;
+            document.getElementById('riddle-text').innerText = currentData.q;
+            
+            const btnZone = document.getElementById('btn-zone');
+            btnZone.innerHTML = ''; // Clear old buttons
+            
+            currentData.options.forEach(optionText => {
+                const btn = document.createElement('button');
+                btn.innerText = optionText;
+                btn.onclick = () => checkAnswer(optionText, currentData.a);
+                btnZone.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                currentStep++;
+                loadRiddle(); // Load next or win
+            } else {
+                document.getElementById('play-area').classList.add('hidden');
+                document.getElementById('fail-area').classList.remove('hidden');
+            }
+        }
+
+        // Start the game immediately
+        loadRiddle();
+    </script>
 </body>
 </html>
