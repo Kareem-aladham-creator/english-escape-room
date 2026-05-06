@@ -34,8 +34,18 @@
             margin-bottom: 5px;
         }
 
+        /* === GLOWING TEXT EFFECT === */
+        .glowing-title {
+            color: #ffffff;
+            text-shadow: 0 0 10px #3399ff, 0 0 20px #3399ff, 0 0 40px #0055ff, 0 0 80px #0055ff;
+            font-size: 3.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
         .maze-board {
-            display: grid;
+            display: none; /* Hidden until game starts */
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
             background-color: #002244;
@@ -63,7 +73,8 @@
             transform: scale(1.1);
         }
 
-        #game-container, #end-screen {
+        /* Shared Box Style for all screens */
+        #start-screen, #game-container, #end-screen {
             background-color: #002244;
             border: 3px solid #0055ff;
             border-radius: 20px;
@@ -71,6 +82,10 @@
             max-width: 550px;
             width: 100%;
             box-shadow: 0 10px 40px rgba(0, 85, 255, 0.3);
+        }
+
+        #game-container, #end-screen {
+            display: none; /* Hidden initially */
         }
 
         .riddle-number {
@@ -92,6 +107,7 @@
             gap: 20px;
         }
 
+        /* Main Buttons (Answers & Start) */
         button {
             font-family: 'DynaPuff', cursive;
             background-color: #004488;
@@ -107,6 +123,24 @@
         button:hover {
             background-color: #0055ff;
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 85, 255, 0.4);
+        }
+
+        /* Smaller Restart Button */
+        .restart-btn {
+            background-color: #222;
+            border: 2px solid #555;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-top: 25px;
+            color: #aaa;
+        }
+
+        .restart-btn:hover {
+            background-color: #ff4444;
+            border-color: #cc0000;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
         }
 
         .heartbreak {
@@ -144,19 +178,33 @@
 <body>
 
     <h1>English Escape Room</h1>
+    
+    <!-- THE MAZE -->
     <div class="maze-board" id="maze-board"></div>
 
+    <!-- START SCREEN -->
+    <div id="start-screen">
+        <h2 class="glowing-title">Welcome!</h2>
+        <p style="font-size: 20px; margin-bottom: 30px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
+        <button onclick="startGame()" style="font-size: 24px; padding: 20px 40px;">START GAME</button>
+    </div>
+
+    <!-- GAME SCREEN -->
     <div id="game-container">
         <div id="riddle-tag" class="riddle-number">Riddle 1</div>
         <div id="question-text" class="question-text">Loading...</div>
         <div id="options-container" class="options"></div>
         <div style="margin-top: 25px; color: #ff4444; font-size: 20px;">LIFE: ❤️</div>
+        
+        <!-- Restart Button placed inside the game box -->
+        <button class="restart-btn" onclick="restartToStart()">RESTART LEVEL</button>
     </div>
 
-    <div id="end-screen" style="display: none;">
-        <h2 id="end-title" style="font-size: 36px;"></h2>
-        <p id="end-message" style="font-size: 20px; margin-bottom: 20px;"></p>
-        <button onclick="location.reload()">TRY AGAIN</button>
+    <!-- END SCREEN -->
+    <div id="end-screen">
+        <h2 id="end-title" style="font-size: 36px; margin-top: 0;"></h2>
+        <p id="end-message" style="font-size: 20px; margin-bottom: 25px;"></p>
+        <button onclick="restartToStart()">TRY AGAIN</button>
     </div>
 
     <div class="credits">
@@ -185,7 +233,7 @@
             { q: "Complete this sentence: 'Is that bag ___?'", options: ["Your", "Yours"], answer: 1 },
             { q: "How should you form the possessive of 'babies' (plural)?", options: ["Babies'", "Baby's"], answer: 0 },
             { q: "Most of the students had ___ chance to see the document.", options: ["Their", "His"], answer: 0 },
-            { q: "Which of these uses 'whose' correctly?", options: ["Whose bag is this?", "Whose performing tonight?"], answer: 0 },
+            { q: "Most of the students had ___ chance to see the document.", options: ["Their", "His or Her"], answer: 0 },
             { q: "George Washington and James Madison signed the Constitution. ___ became presidents.", options: ["They", "Them"], answer: 0 },
             { q: "Which is a 'Vowel'?", options: ["B", "E"], answer: 1 },
             { q: "Is there a double negative in: 'Nobody knows more about that glass than Dr. Franks'?", options: ["No", "Yes"], answer: 0 }
@@ -215,6 +263,31 @@
             setTimeout(() => el.remove(), 1200);
         }
 
+        // --- NEW START & RESTART LOGIC ---
+        function startGame() {
+            currentIdx = 0;
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'none';
+            
+            // Show Game and Maze
+            document.getElementById('maze-board').style.display = 'grid';
+            document.getElementById('game-container').style.display = 'block';
+            
+            updateGame();
+        }
+
+        function restartToStart() {
+            // Hide Game, End Screen, and Maze
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'none';
+            document.getElementById('maze-board').style.display = 'none';
+            
+            // Show Start Screen and reset background color
+            document.getElementById('start-screen').style.display = 'block';
+            document.body.style.backgroundColor = "#001122";
+        }
+        // ---------------------------------
+
         function updateGame() {
             if (currentIdx >= 20) {
                 showEndScreen(true);
@@ -224,11 +297,13 @@
             cells[mazePath[19]].innerHTML = '🏁';
             cells[mazePath[currentIdx]].classList.add('active');
             cells[mazePath[currentIdx]].innerHTML = '🏃‍♂️';
+            
             document.getElementById('riddle-tag').innerText = `Riddle ${currentIdx + 1}`;
             const qData = questions[currentIdx];
             document.getElementById('question-text').innerText = qData.q;
             const btnBox = document.getElementById('options-container');
             btnBox.innerHTML = '';
+            
             qData.options.forEach((text, i) => {
                 const b = document.createElement('button');
                 b.innerText = text;
@@ -272,7 +347,6 @@
                 document.getElementById('end-message').innerText = "One mistake was all it took...";
             }
         }
-        updateGame();
     </script>
 </body>
 </html>
