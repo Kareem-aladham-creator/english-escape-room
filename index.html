@@ -81,7 +81,6 @@
             padding: 30px;
             max-width: 550px;
             width: 100%;
-            box-sizing: border-box; /* Ensures padding doesn't push it off screen */
             box-shadow: 0 10px 40px rgba(0, 85, 255, 0.3);
         }
 
@@ -119,7 +118,6 @@
             font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
-            width: 100%;
         }
 
         button:hover {
@@ -128,22 +126,34 @@
             box-shadow: 0 5px 15px rgba(0, 85, 255, 0.4);
         }
 
-        /* Smaller Return to Lobby Button */
-        .lobby-btn {
+        /* Smaller Restart Button */
+        .restart-btn {
             background-color: #222;
             border: 2px solid #555;
             padding: 12px 20px;
             font-size: 16px;
             margin-top: 25px;
             color: #aaa;
-            width: auto;
+            line-height: 1.3;
         }
 
-        .lobby-btn:hover {
+        .restart-subtext {
+            display: block;
+            font-size: 11px;
+            margin-top: 4px;
+            color: #777;
+            letter-spacing: 1px;
+        }
+
+        .restart-btn:hover {
             background-color: #ff4444;
             border-color: #cc0000;
             color: white;
             box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        }
+
+        .restart-btn:hover .restart-subtext {
+            color: #ffcccc;
         }
 
         .heartbreak {
@@ -153,7 +163,6 @@
             transform: translate(-50%, -50%);
             animation: breakEffect 1s forwards;
             pointer-events: none;
-            z-index: 9999;
         }
         @keyframes breakEffect {
             0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -165,7 +174,6 @@
             font-size: 60px;
             animation: explodeEffect 1.5s forwards;
             pointer-events: none;
-            z-index: 9999;
         }
         @keyframes explodeEffect {
             0% { transform: scale(1); opacity: 1; }
@@ -177,43 +185,6 @@
             font-size: 14px;
             color: #66b2ff;
             opacity: 0.8;
-        }
-
-        /* ========================================= */
-        /* === 📱 MOBILE FIXES (SHRINKS ON PHONE) === */
-        /* ========================================= */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .glowing-title {
-                font-size: 2.5rem; /* Smaller welcome text */
-            }
-            #start-screen, #game-container, #end-screen {
-                padding: 15px; /* Less empty space inside the box */
-            }
-            .maze-board {
-                gap: 5px;
-                padding: 10px;
-                max-width: 280px;
-            }
-            .maze-cell {
-                font-size: 18px; /* Smaller runner emoji */
-            }
-            .question-text {
-                font-size: 18px; /* Smaller question font */
-                margin-bottom: 15px;
-            }
-            .options {
-                gap: 10px; /* Less space between answer buttons */
-            }
-            button {
-                padding: 12px; /* Thinner buttons */
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -227,8 +198,8 @@
     <!-- START SCREEN -->
     <div id="start-screen">
         <h2 class="glowing-title">Welcome!</h2>
-        <p style="font-size: 18px; margin-bottom: 25px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
-        <button onclick="startGame()" style="font-size: 20px; padding: 15px 30px; width: auto;">START GAME</button>
+        <p style="font-size: 20px; margin-bottom: 30px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
+        <button onclick="startGame()" style="font-size: 24px; padding: 20px 40px;">START GAME</button>
     </div>
 
     <!-- GAME SCREEN -->
@@ -236,22 +207,23 @@
         <div id="riddle-tag" class="riddle-number">Riddle 1</div>
         <div id="question-text" class="question-text">Loading...</div>
         <div id="options-container" class="options"></div>
-        <div style="margin-top: 20px; color: #ff4444; font-size: 18px; font-weight: bold;">LIFE: ❤️</div>
+        <div style="margin-top: 25px; color: #ff4444; font-size: 20px;">LIFE: ❤️</div>
         
-        <!-- Only Lobby Button inside the game -->
-        <button class="lobby-btn" onclick="restartToLobby()">RETURN TO LOBBY</button>
+        <!-- Restart Button placed inside the game box -->
+        <button class="restart-btn" onclick="restartToStart()">
+            RESTART GAME<br>
+            <span class="restart-subtext">RETURN TO LOBBY</span>
+        </button>
     </div>
 
     <!-- END SCREEN -->
     <div id="end-screen">
-        <h2 id="end-title" style="font-size: 28px; margin-top: 0;"></h2>
-        <p id="end-message" style="font-size: 18px; margin-bottom: 20px;"></p>
-        
-        <!-- Both Buttons on Death/Win Screen -->
-        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto;">
-            <button onclick="startGame()" style="font-size: 18px;">RESTART GAME</button>
-            <button class="lobby-btn" style="margin-top: 0; width: 100%;" onclick="restartToLobby()">RETURN TO LOBBY</button>
-        </div>
+        <h2 id="end-title" style="font-size: 36px; margin-top: 0;"></h2>
+        <p id="end-message" style="font-size: 20px; margin-bottom: 25px;"></p>
+        <button onclick="restartToStart()">
+            RESTART GAME<br>
+            <span style="font-size: 12px; display: block; margin-top: 4px;">RETURN TO LOBBY</span>
+        </button>
     </div>
 
     <div class="credits">
@@ -321,7 +293,7 @@
             updateGame();
         }
 
-        function restartToLobby() {
+        function restartToStart() {
             document.getElementById('game-container').style.display = 'none';
             document.getElementById('end-screen').style.display = 'none';
             document.getElementById('maze-board').style.display = 'none';
