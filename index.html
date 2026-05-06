@@ -81,7 +81,7 @@
             padding: 30px;
             max-width: 550px;
             width: 100%;
-            box-sizing: border-box; /* Ensures padding doesn't push it off screen */
+            box-sizing: border-box;
             box-shadow: 0 10px 40px rgba(0, 85, 255, 0.3);
         }
 
@@ -183,37 +183,15 @@
         /* === 📱 MOBILE FIXES (SHRINKS ON PHONE) === */
         /* ========================================= */
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .glowing-title {
-                font-size: 2.5rem; /* Smaller welcome text */
-            }
-            #start-screen, #game-container, #end-screen {
-                padding: 15px; /* Less empty space inside the box */
-            }
-            .maze-board {
-                gap: 5px;
-                padding: 10px;
-                max-width: 280px;
-            }
-            .maze-cell {
-                font-size: 18px; /* Smaller runner emoji */
-            }
-            .question-text {
-                font-size: 18px; /* Smaller question font */
-                margin-bottom: 15px;
-            }
-            .options {
-                gap: 10px; /* Less space between answer buttons */
-            }
-            button {
-                padding: 12px; /* Thinner buttons */
-                font-size: 16px;
-            }
+            body { padding: 10px; }
+            h1 { font-size: 1.8rem; }
+            .glowing-title { font-size: 2.5rem; }
+            #start-screen, #game-container, #end-screen { padding: 15px; }
+            .maze-board { gap: 5px; padding: 10px; max-width: 280px; }
+            .maze-cell { font-size: 18px; }
+            .question-text { font-size: 18px; margin-bottom: 15px; }
+            .options { gap: 10px; }
+            button { padding: 12px; font-size: 16px; }
         }
     </style>
 </head>
@@ -380,7 +358,7 @@
             screen.style.display = 'block';
             if (isWin) {
                 document.getElementById('end-title').innerText = "🏆 YOU ESCAPED!";
-                document.getElementById('end-message').innerText = "Excellent work, Kareem and Class 8A!";
+                document.getElementById('end-message').innerText = "Excellent work!";
                 for(let i=0; i<20; i++) {
                     setTimeout(() => showVisualEffect('🎆', 'firework'), i * 150);
                 }
