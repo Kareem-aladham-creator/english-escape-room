@@ -118,6 +118,7 @@
             font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
+            width: 100%;
         }
 
         button:hover {
@@ -126,17 +127,18 @@
             box-shadow: 0 5px 15px rgba(0, 85, 255, 0.4);
         }
 
-        /* Smaller Restart Button */
-        .restart-btn {
+        /* Smaller Return to Lobby Button */
+        .lobby-btn {
             background-color: #222;
             border: 2px solid #555;
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 12px 20px;
+            font-size: 16px;
             margin-top: 25px;
             color: #aaa;
+            width: auto;
         }
 
-        .restart-btn:hover {
+        .lobby-btn:hover {
             background-color: #ff4444;
             border-color: #cc0000;
             color: white;
@@ -186,7 +188,7 @@
     <div id="start-screen">
         <h2 class="glowing-title">Welcome!</h2>
         <p style="font-size: 20px; margin-bottom: 30px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
-        <button onclick="startGame()" style="font-size: 24px; padding: 20px 40px;">START GAME</button>
+        <button onclick="startGame()" style="font-size: 24px; padding: 20px 40px; width: auto;">START GAME</button>
     </div>
 
     <!-- GAME SCREEN -->
@@ -196,15 +198,20 @@
         <div id="options-container" class="options"></div>
         <div style="margin-top: 25px; color: #ff4444; font-size: 20px;">LIFE: ❤️</div>
         
-        <!-- Restart Button placed inside the game box -->
-        <button class="restart-btn" onclick="restartToStart()">RESTART LEVEL</button>
+        <!-- Only Lobby Button inside the game -->
+        <button class="lobby-btn" onclick="restartToLobby()">RETURN TO LOBBY</button>
     </div>
 
     <!-- END SCREEN -->
     <div id="end-screen">
         <h2 id="end-title" style="font-size: 36px; margin-top: 0;"></h2>
         <p id="end-message" style="font-size: 20px; margin-bottom: 25px;"></p>
-        <button onclick="restartToStart()">TRY AGAIN</button>
+        
+        <!-- Both Buttons on Death/Win Screen -->
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 250px; margin: 0 auto;">
+            <button onclick="startGame()" style="font-size: 20px;">RESTART GAME</button>
+            <button class="lobby-btn" style="margin-top: 0; width: 100%;" onclick="restartToLobby()">RETURN TO LOBBY</button>
+        </div>
     </div>
 
     <div class="credits">
@@ -263,30 +270,25 @@
             setTimeout(() => el.remove(), 1200);
         }
 
-        // --- NEW START & RESTART LOGIC ---
         function startGame() {
             currentIdx = 0;
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('end-screen').style.display = 'none';
             
-            // Show Game and Maze
             document.getElementById('maze-board').style.display = 'grid';
             document.getElementById('game-container').style.display = 'block';
             
             updateGame();
         }
 
-        function restartToStart() {
-            // Hide Game, End Screen, and Maze
+        function restartToLobby() {
             document.getElementById('game-container').style.display = 'none';
             document.getElementById('end-screen').style.display = 'none';
             document.getElementById('maze-board').style.display = 'none';
             
-            // Show Start Screen and reset background color
             document.getElementById('start-screen').style.display = 'block';
             document.body.style.backgroundColor = "#001122";
         }
-        // ---------------------------------
 
         function updateGame() {
             if (currentIdx >= 20) {
