@@ -81,6 +81,7 @@
             padding: 30px;
             max-width: 550px;
             width: 100%;
+            box-sizing: border-box; /* Ensures padding doesn't push it off screen */
             box-shadow: 0 10px 40px rgba(0, 85, 255, 0.3);
         }
 
@@ -152,6 +153,7 @@
             transform: translate(-50%, -50%);
             animation: breakEffect 1s forwards;
             pointer-events: none;
+            z-index: 9999;
         }
         @keyframes breakEffect {
             0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -163,6 +165,7 @@
             font-size: 60px;
             animation: explodeEffect 1.5s forwards;
             pointer-events: none;
+            z-index: 9999;
         }
         @keyframes explodeEffect {
             0% { transform: scale(1); opacity: 1; }
@@ -174,6 +177,43 @@
             font-size: 14px;
             color: #66b2ff;
             opacity: 0.8;
+        }
+
+        /* ========================================= */
+        /* === 📱 MOBILE FIXES (SHRINKS ON PHONE) === */
+        /* ========================================= */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .glowing-title {
+                font-size: 2.5rem; /* Smaller welcome text */
+            }
+            #start-screen, #game-container, #end-screen {
+                padding: 15px; /* Less empty space inside the box */
+            }
+            .maze-board {
+                gap: 5px;
+                padding: 10px;
+                max-width: 280px;
+            }
+            .maze-cell {
+                font-size: 18px; /* Smaller runner emoji */
+            }
+            .question-text {
+                font-size: 18px; /* Smaller question font */
+                margin-bottom: 15px;
+            }
+            .options {
+                gap: 10px; /* Less space between answer buttons */
+            }
+            button {
+                padding: 12px; /* Thinner buttons */
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -187,8 +227,8 @@
     <!-- START SCREEN -->
     <div id="start-screen">
         <h2 class="glowing-title">Welcome!</h2>
-        <p style="font-size: 20px; margin-bottom: 30px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
-        <button onclick="startGame()" style="font-size: 24px; padding: 20px 40px; width: auto;">START GAME</button>
+        <p style="font-size: 18px; margin-bottom: 25px; color: #b3d9ff;">Solve 20 riddles to escape. One mistake locks the door forever.</p>
+        <button onclick="startGame()" style="font-size: 20px; padding: 15px 30px; width: auto;">START GAME</button>
     </div>
 
     <!-- GAME SCREEN -->
@@ -196,7 +236,7 @@
         <div id="riddle-tag" class="riddle-number">Riddle 1</div>
         <div id="question-text" class="question-text">Loading...</div>
         <div id="options-container" class="options"></div>
-        <div style="margin-top: 25px; color: #ff4444; font-size: 20px;">LIFE: ❤️</div>
+        <div style="margin-top: 20px; color: #ff4444; font-size: 18px; font-weight: bold;">LIFE: ❤️</div>
         
         <!-- Only Lobby Button inside the game -->
         <button class="lobby-btn" onclick="restartToLobby()">RETURN TO LOBBY</button>
@@ -204,12 +244,12 @@
 
     <!-- END SCREEN -->
     <div id="end-screen">
-        <h2 id="end-title" style="font-size: 36px; margin-top: 0;"></h2>
-        <p id="end-message" style="font-size: 20px; margin-bottom: 25px;"></p>
+        <h2 id="end-title" style="font-size: 28px; margin-top: 0;"></h2>
+        <p id="end-message" style="font-size: 18px; margin-bottom: 20px;"></p>
         
         <!-- Both Buttons on Death/Win Screen -->
-        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 250px; margin: 0 auto;">
-            <button onclick="startGame()" style="font-size: 20px;">RESTART GAME</button>
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto;">
+            <button onclick="startGame()" style="font-size: 18px;">RESTART GAME</button>
             <button class="lobby-btn" style="margin-top: 0; width: 100%;" onclick="restartToLobby()">RETURN TO LOBBY</button>
         </div>
     </div>
